@@ -1,10 +1,16 @@
-﻿ ###################################
- # Resets passwords, unlocks accounts and requires password 
- # change on next login for usernames provided in a CSV 
- #
- # Written by Micah Boggs. micah.boggs@gmail.com
- ################
+﻿###################################
+# Resets passwords, unlocks accounts and requires password 
+# change on next login for usernames provided in a CSV 
+#
+# Written by Micah Boggs. micah.boggs@gmail.com
+################
 
+
+##### Region Module Import ########
+
+Import-module ActiveDirectory
+
+##### End Region ###########
 
 ######### Section config ##########
 

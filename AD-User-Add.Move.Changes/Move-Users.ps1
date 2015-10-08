@@ -6,7 +6,11 @@
 #
 #################################
 
+##### Region Module Import ########
 
+Import-module ActiveDirectory
+
+##### End Region ###########
 
 ############## Region Configuration #############
 
@@ -988,7 +992,6 @@ param(
 ############# Region Execution  ##############
     Write-Host "Move-Users v$Version"
 
-    Import-Module ActiveDirectory
 
     if ($testing -eq 'y' ) {
         Write-Warning "System is in test mode!"

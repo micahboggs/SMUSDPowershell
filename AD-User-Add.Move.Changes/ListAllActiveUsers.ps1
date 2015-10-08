@@ -4,6 +4,14 @@
  # Written by Micah Boggs. micah.boggs@gmail.com
  ################
 
+ 
+ ##### Region Module Import ########
+
+Import-module ActiveDirectory
+
+##### End Region ###########
+ 
+ 
  ########## Region Configuration #########
  
  $version = "1.0"

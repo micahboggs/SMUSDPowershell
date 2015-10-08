@@ -7,7 +7,11 @@
 #
 #################################
 
+##### Region Module Import ########
 
+Import-module ActiveDirectory
+
+##### End Region ###########
 
 ######### Region Configuration ##############
     
@@ -513,7 +517,7 @@ param(
         }
     }
 
-    Import-Module ActiveDirectory
+
     Import-Csv $CSVFile | Term-User @TermUserConfig | Export-Csv $ResultsFile -NoTypeInformation
 
 # End Region

@@ -6,7 +6,14 @@
 #
 #################################
 
-#region Configuration
+##### Region Module Import ########
+
+Import-module ActiveDirectory
+
+##### End Region ###########
+
+
+####### Region Configuration #########
  
     $Version="1.1"
 
@@ -75,9 +82,12 @@
 
     }
 
-#end region
+########### End region configuration #########
 
-#region functions
+
+
+########### Region functions ################
+
 Function New-EmailTemplate {
 param($Name,$surname,$LoginName,$Password,$ServiceDeskEmail,$Title,$Site)
 
@@ -1045,13 +1055,16 @@ param($SamAccountName,$HomeDirectory,$Password,$OU,$Failures,$AccountEmail)
         $Out
 }
 
-#endregion
+############# End region functions ##########
 
-#region Execute creation of users
+
+
+
+############# region Execute  ########
 
     Write-Host "Add-New-Users v$Version"
 
-    Import-module ActiveDirectory
+    
 
     if ($testing -eq 'y' ) {
         Write-Warning "System is in test mode!"
@@ -1073,5 +1086,5 @@ param($SamAccountName,$HomeDirectory,$Password,$OU,$Failures,$AccountEmail)
 
     Read-Host -Prompt "Press enter to finish..."
 
-#endregion
+###### end region execute ##########
 
