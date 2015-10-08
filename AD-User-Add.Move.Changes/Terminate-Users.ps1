@@ -15,7 +15,7 @@ Import-module ActiveDirectory
 
 ######### Region Configuration ##############
     
-    $version = "1.1"
+    $version = "1.1.1"
 
     # Uncomment this if testing and you don't want it to send out emails
     # $testing = "y"

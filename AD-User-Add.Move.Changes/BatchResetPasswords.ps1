@@ -15,7 +15,7 @@ Import-module ActiveDirectory
 ######### Section config ##########
 
 
-    $Version="1.1"
+    $Version="1.1.1"
     #scriptpath
     $ScriptRootPath = Split-Path -parent $MyInvocation.MyCommand.Definition
 
