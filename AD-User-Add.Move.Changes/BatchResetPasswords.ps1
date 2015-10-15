@@ -15,7 +15,7 @@ Import-module ActiveDirectory
 ######### Section config ##########
 
 
-    $Version="1.1.1"
+    $Version="1.1.2"
     #scriptpath
     $ScriptRootPath = Split-Path -parent $MyInvocation.MyCommand.Definition
 
@@ -135,5 +135,5 @@ Write-host "BatchResetPasswords.ps1 v$version"
 
 Import-Csv $CSVFile | UnlockUser  | Export-Csv $ResultsFile -NoTypeInformation
 
-
+Read-Host -Prompt "Press enter to finish..."
 ######### End Section Run ##########

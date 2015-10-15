@@ -15,7 +15,7 @@ Import-module ActiveDirectory
 
 ####### Region Configuration #########
  
-    $Version="1.1.1"
+    $Version="1.1.2"
 
     # Uncomment this if testing and you don't want it to send out emails
      $testing = "n"
@@ -385,6 +385,8 @@ param(
 
         #Reset the failures or set if first one
         $Failures = @()
+        #Reset add to groups or set if first one
+        $AddGroups += @()
 
         #Get username and password
         $Username = New-Username -FirstName $GivenName -LastName $Surname
@@ -400,13 +402,13 @@ param(
                     if ($Title.contains("Teacher"))
                     {
                         $templateuser = "ad-teach-template"
-                        $AddGroups = "AD Certificated Email"
+                        $AddGroups += "AD Certificated Email"
                     } elseif ($Title.contains('Principal')) {
                         $templateuser = "ad-teach-template"
-                        $AddGroups = "AD Management Email"
+                        $AddGroups += "AD Management Email"
                     } else {
                         $templateuser = "ad-ss-template" 
-                        $AddGroups = "AD Certificated Email"
+                        $AddGroups += "AD Certificated Email"
                     }
                     $EmailTo = $ADEmail
                 }
@@ -415,13 +417,13 @@ param(
                     if ($Title.contains("Teacher"))
                     {
                         $templateuser = "ces-teacher-template"
-                        $AddGroups = "CAR Certificated Email"
+                        $AddGroups += "CAR Certificated Email"
                     } elseif ($Title.contains('Principal')) {
                         $templateuser = "ces-teacher-template"
-                        $AddGroups = "CAR Management Email"
+                        $AddGroups += "CAR Management Email"
                     }  else {
                         $templateuser = "ces-ss-template" 
-                        $AddGroups = "CAR Classified Email"
+                        $AddGroups += "CAR Classified Email"
                     }
                     $EmailTo = $CESEmail
                 }
@@ -430,13 +432,13 @@ param(
                     if ($Title.contains("Teacher"))
                     {
                         $templateuser = "dps-teacher-template"
-                        $AddGroups = "DPS Certificated Email"
+                        $AddGroups += "DPS Certificated Email"
                     } elseif ($Title.contains('Principal')) {
                         $templateuser = "dps-teacher-template"
-                        $AddGroups = "DPS Management Email"
+                        $AddGroups += "DPS Management Email"
                     } else {
                         $templateuser = "dps-ss-template" 
-                        $AddGroups = "DPS Classified Email"
+                        $AddGroups += "DPS Classified Email"
                     }
                     $EmailTo = $DPSEmail
 
@@ -446,14 +448,14 @@ param(
                     if ($Title.contains("Teacher"))
                     {
                         $templateuser = "dis-teacher-template"
-                        $AddGroups = "DIS Certificated Email"
+                        $AddGroups += "DIS Certificated Email"
                     } elseif ($Title.contains('Principal')) {
                         $templateuser = "dis-teacher-template"
-                        $AddGroups = "DIS Management Email"
+                        $AddGroups += "DIS Management Email"
                     
                     } else {
                         $templateuser = "dis-ss-template" 
-                        $AddGroups = "DIS Classified Email"
+                        $AddGroups += "DIS Classified Email"
                     }
                     $EmailTo = $DISEmail
                 }
@@ -462,14 +464,14 @@ param(
                     if ($Title.contains("Teacher"))
                     {
                         $templateuser = "fhs-teacher-template"
-                        $AddGroups = "FH Certificated Email"
+                        $AddGroups += "FH Certificated Email"
                     } elseif ($Title.contains('Principal')) {
                         $templateuser = "fhs-teacher-template"
-                        $AddGroups = "FH Management Email"
+                        $AddGroups += "FH Management Email"
                     
                     } else {
                         $templateuser = "fhs-ss-template" 
-                        $AddGroups = "FH Classified Email"
+                        $AddGroups += "FH Classified Email"
                     }
                     $EmailTo = $FHSEmail
                 }
@@ -478,14 +480,14 @@ param(
                     if ($Title.contains("Teacher"))
                     {
                         $templateuser = "jaes-teacher-templat"
-                        $AddGroups = "JALE Certificated Email"
+                        $AddGroups += "JALE Certificated Email"
                     } elseif ($Title.contains('Principal')) {
                         $templateuser = "jaes-teacher-templat"
-                        $AddGroups = "JALE Management Email"
+                        $AddGroups += "JALE Management Email"
                     
                     } else {
                         $templateuser = "jaes-ss-template" 
-                        $AddGroups = "JALE Classified Email"
+                        $AddGroups += "JALE Classified Email"
                     }
                     $EmailTo = $JAESEmail
                 }
@@ -494,14 +496,14 @@ param(
                     if ($Title.contains("Teacher"))
                     {
                         $templateuser = "kh-teacher-template"
-                        $AddGroups = "KH Certificated Email"
+                        $AddGroups += "KH Certificated Email"
                     } elseif ($Title.contains('Principal')) {
                         $templateuser = "kh-teacher-template"
-                        $AddGroups = "KH Management Email"
+                        $AddGroups += "KH Management Email"
                     
                     } else {
                         $templateuser = "kh-ss-template" 
-                        $AddGroups = "KH Classified Email"
+                        $AddGroups += "KH Classified Email"
                     }
                     $EmailTo = $KHEmail
                 }
@@ -510,14 +512,14 @@ param(
                     if ($Title.contains("Teacher"))
                     {
                         $templateuser = "lcm-teacher-template"
-                        $AddGroups = "LCM Certificated Email"
+                        $AddGroups += "LCM Certificated Email"
                     } elseif ($Title.contains('Principal')) {
                         $templateuser = "lcm-teacher-template"
-                        $AddGroups = "LCM Management Email"
+                        $AddGroups += "LCM Management Email"
                     
                     } else {
                         $templateuser = "lcm-ss-template" 
-                        $AddGroups = "LCM Classified Email"
+                        $AddGroups += "LCM Classified Email"
                     }
                     $EmailTo = $LCMEmail
                 }
@@ -526,14 +528,14 @@ param(
                     if ($Title.contains("Teacher"))
                     {
                         $templateuser = "mhhs-teacher-templat"
-                        $AddGroups = "MHHS Certificated Email"
+                        $AddGroups += "MHHS Certificated Email"
                     } elseif ($Title.contains('Principal')) {
                         $templateuser = "mhhs-teacher-templat"
-                        $AddGroups = "MHHS Management Email"
+                        $AddGroups += "MHHS Management Email"
                     
                     } else {
                         $templateuser = "mhhs-ss-template" 
-                        $AddGroups = "MHHS Classified Email"
+                        $AddGroups += "MHHS Classified Email"
                     }
                     $EmailTo = $MHHSEmail
                 }
@@ -542,14 +544,14 @@ param(
                     if ($Title.contains("Teacher"))
                     {
                         $templateuser = "pal-teacher-template"
-                        $AddGroups = "PAL Certificated Email"
+                        $AddGroups += "PAL Certificated Email"
                     } elseif ($Title.contains('Principal')) {
                         $templateuser = "pal-teacher-template"
-                        $AddGroups = "PAL Management Email"
+                        $AddGroups += "PAL Management Email"
                     
                     } else {
                         $templateuser = "pal-ss-template" 
-                        $AddGroups = "PAL Classified Email"
+                        $AddGroups += "PAL Classified Email"
                     }
                     $EmailTo = $PALEmail
                 }
@@ -558,14 +560,14 @@ param(
                     if ($Title.contains("Teacher"))
                     {
                         $templateuser = "rl-teacher-template"
-                        $AddGroups = "RL Certificated Email"
+                        $AddGroups += "RL Certificated Email"
                     } elseif ($Title.contains('Principal')) {
                         $templateuser = "rl-teacher-template"
-                        $AddGroups = "RL Management Email"
+                        $AddGroups += "RL Management Email"
                     
                     } else {
                         $templateuser = "rl-ss-template" 
-                        $AddGroups = "RL Classified Email"
+                        $AddGroups += "RL Classified Email"
                     }
                     $EmailTo = $RLEmail
                 }
@@ -574,14 +576,14 @@ param(
                     if ($Title.contains("Teacher"))
                     {
                         $templateuser = "sees-teacher-templat"
-                        $AddGroups = "SEES Certificated Email"
+                        $AddGroups += "SEES Certificated Email"
                     } elseif ($Title.contains('Principal')) {
                         $templateuser = "sees-teacher-templat"
-                        $AddGroups = "SEES Management Email"
+                        $AddGroups += "SEES Management Email"
                     
                     } else {
                         $templateuser = "sees-ss-template" 
-                        $AddGroups = "SEES Classified Email"
+                        $AddGroups += "SEES Classified Email"
                     }
                     $EmailTo = $SEESEmail
                 }
@@ -590,14 +592,14 @@ param(
                     if ($Title.contains("Teacher"))
                     {
                         $templateuser = "sems-teacher-templat"
-                        $AddGroups = "SEMS Certificated Email"
+                        $AddGroups += "SEMS Certificated Email"
                     } elseif ($Title.contains('Principal')) {
                         $templateuser = "sems-teacher-templat"
-                        $AddGroups = "SEMS Management Email"
+                        $AddGroups += "SEMS Management Email"
                     
                     } else {
                         $templateuser = "sems-ss-template" 
-                        $AddGroups = "SEMS Classified Email"
+                        $AddGroups += "SEMS Classified Email"
                     }
                     $EmailTo = $SEMSEmail
                 }
@@ -606,14 +608,14 @@ param(
                     if ($Title.contains("Teacher"))
                     {
                         $templateuser = "smes-teacher-templat"
-                        $AddGroups = "SMES Certificated Email"
+                        $AddGroups += "SMES Certificated Email"
                     } elseif ($Title.contains('Principal')) {
                         $templateuser = "smes-teacher-templat"
-                        $AddGroups = "SMES Management Email"
+                        $AddGroups += "SMES Management Email"
                     
                     } else {
                         $templateuser = "smes-ss-template" 
-                        $AddGroups = "SMES Classified Email"
+                        $AddGroups += "SMES Classified Email"
                     }
                     $EmailTo = $SMESEmail
                 }
@@ -622,14 +624,14 @@ param(
                     if ($Title.contains("Teacher"))
                     {
                         $templateuser = "smms-teacher-templat"
-                        $AddGroups = "SMMS Certificated Email"
+                        $AddGroups += "SMMS Certificated Email"
                     } elseif ($Title.contains('Principal')) {
                         $templateuser = "smms-teacher-templat"
-                        $AddGroups = "SMMS Management Email"
+                        $AddGroups += "SMMS Management Email"
                     
                     } else {
                         $templateuser = "smms-ss-template" 
-                        $AddGroups = "SMMS Classified Email"
+                        $AddGroups += "SMMS Classified Email"
                     }
                     $EmailTo = $SMMSEmail
                 }
@@ -638,14 +640,14 @@ param(
                     if ($Title.contains("Teacher"))
                     {
                         $templateuser = "smhs-teach-template"
-                        $AddGroups = "SMHS Certificated Email"
+                        $AddGroups += "SMHS Certificated Email"
                     } elseif ($Title.contains('Principal')) {
                         $templateuser = "smhs-teach-template"
-                        $AddGroups = "SMHS Management Email"
+                        $AddGroups += "SMHS Management Email"
                     
                     } else {
                         $templateuser = "smhs-ss-template" 
-                        $AddGroups = "SMHS Classified Email"
+                        $AddGroups += "SMHS Classified Email"
                     }
                     $EmailTo = $SMHSEmail
                 }
@@ -654,14 +656,14 @@ param(
                     if ($Title.contains("Teacher"))
                     {
                         $templateuser = "toes-teacher-templat"
-                        $AddGroups = "TOE Certificated Email"
+                        $AddGroups += "TOE Certificated Email"
                     } elseif ($Title.contains('Principal')) {
                         $templateuser = "toes-teacher-templat"
-                        $AddGroups = "TOE Management Email"
+                        $AddGroups += "TOE Management Email"
                     
                     } else {
                         $templateuser = "toes-ss-template" 
-                        $AddGroups = "TOE Classified Email"
+                        $AddGroups += "TOE Classified Email"
                     }
                     $EmailTo = $TOESEmail
                 }
@@ -670,14 +672,14 @@ param(
                     if ($Title.contains("Teacher"))
                     {
                         $templateuser = "tohs-teacher-templat"
-                        $AddGroups = "TOHS Certificated Email"
+                        $AddGroups += "TOHS Certificated Email"
                     } elseif ($Title.contains('Principal')) {
                         $templateuser = "tohs-teacher-templat"
-                        $AddGroups = "TOHS Management Email"
+                        $AddGroups += "TOHS Management Email"
                     
                     } else {
                         $templateuser = "tohs-ss-template" 
-                        $AddGroups = "TOHS Classified Email"
+                        $AddGroups += "TOHS Classified Email"
                     }
                     $EmailTo = $TOHSEmail
                 }
@@ -686,14 +688,14 @@ param(
                     if ($Title.contains("Teacher"))
                     {
                         $templateuser = "wpms-teacher-templat"
-                        $AddGroups = "WPMS Certificated Email"
+                        $AddGroups += "WPMS Certificated Email"
                     } elseif ($Title.contains('Principal')) {
                         $templateuser = "wpms-teacher-templat"
-                        $AddGroups = "WPMS Management Email"
+                        $AddGroups += "WPMS Management Email"
                     
                     } else {
                         $templateuser = "wpms-ss-template" 
-                        $AddGroups = "WPMS Classified Email"
+                        $AddGroups += "WPMS Classified Email"
                     }
                     $EmailTo = $WPMSEmail
                 }
@@ -717,7 +719,7 @@ param(
                     $department = "Child Nutrition Svs."
                     $OU = "OU=Users,OU=CNS,OU=SMUSD,DC=smusd,DC=local"
                     $EmailTo = $DOEmail
-                    $AddGroups = "CNS Classified Email"
+                    $AddGroups += "CNS Classified Email"
                 }
             ("DO Curriculum")
                 {
@@ -788,7 +790,7 @@ param(
                     $department = "Facilities Dept."
                     $OU = "OU=Facilities,OU=Users,OU=DO,OU=SMUSD,DC=smusd,DC=local"
                     $EmailTo = $DOEmail
-                    $AddGroups = "Facilities Staff Email"
+                    $AddGroups += "Facilities Staff Email"
                 }
             ("Language Assessment Center")
                 {
@@ -800,14 +802,11 @@ param(
                 {
                     $templateuser = "do-ss-template"
                     $EmailTo = $MOEmail
-                    $AddGroups = "Maintenance Classified Email"
+                    $AddGroups += "Maintenance Classified Email"
                 }
 
             }
             if ($Company.contains("DO") -and (-not $Company.contains("Double"))) {
-                if ($AddGroups) {
-                    $AddGroups += ","
-                }
                 if ($Title.contains("Director") -or $Title.contains("Principal") -or $Title.contains("Superintendent") -or $Title.contains("Supt.")) {
                     $AddGroups += "DO Management Email"
                 } elseif ($Title.contains("Teacher")) {
@@ -1036,7 +1035,7 @@ param(
 
 
         #Remove any variables created incase it causes a duplicate
-        Remove-Variable -Name Username,HomeDirectory,HomeRoot,Password,Failures,NewUserInfo,templateuser,department,OU,LoginName,AccountEmail -ErrorAction SilentlyContinue
+        Remove-Variable -Name Username,HomeDirectory,HomeRoot,Password,Failures,NewUserInfo,templateuser,department,OU,LoginName,AccountEmail,AddGroups -ErrorAction SilentlyContinue
         
 
     }#end for each user in CSV
@@ -1085,6 +1084,38 @@ param($SamAccountName,$HomeDirectory,$Password,$OU,$Failures,$AccountEmail)
     Send-MailMessage -To $ScriptRunAsADObject.EmailAddress -Body "New User Script Output Report is attached" -From $FinalEmailFrom -Subject "New User Script Output Report" -Attachments $ResultsFile
 
     Read-Host -Prompt "Press enter to finish..."
+
+    $smiley = @'
+"                          oooo$$$$$$$$$$$$oooo
+                      oo$$$$$$$$$$$$$$$$$$$$$$$$o
+                   oo$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$o         o$   $$ o$
+   o $ oo        o$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$o       $$ $$ $$o$
+oo $ $ "$      o$$$$$$$$$    $$$$$$$$$$$$$    $$$$$$$$$o       $$$o$$o$
+"$$$$$$o$     o$$$$$$$$$      $$$$$$$$$$$      $$$$$$$$$$o    $$$$$$$$
+  $$$$$$$    $$$$$$$$$$$      $$$$$$$$$$$      $$$$$$$$$$$$$$$$$$$$$$$
+  $$$$$$$$$$$$$$$$$$$$$$$    $$$$$$$$$$$$$    $$$$$$$$$$$$$$  """$$$
+   "$$$""""$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$     "$$$
+    $$$   o$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$     "$$$o
+   o$$"   $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$       $$$o
+   $$$    $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" "$$$$$$ooooo$$$$o
+  o$$$oooo$$$$$  $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$   o$$$$$$$$$$$$$$$$$
+  $$$$$$$$"$$$$   $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$     $$$$""""""""
+ """"       $$$$    "$$$$$$$$$$$$$$$$$$$$$$$$$$$$"      o$$$
+            "$$$o     """$$$$$$$$$$$$$$$$$$"$$"         $$$
+              $$$o          "$$""$$$$$$""""           o$$$
+               $$$$o                                o$$$"
+                "$$$$o      o$$$$$$o"$$$$o        o$$$$
+                  "$$$$$oo     ""$$$$o$$$$$o   o$$$$""
+                     ""$$$$$oooo  "$$$o$$$$$$$$$"""
+                        ""$$$$$$$oo $$$$$$$$$$
+                                """"$$$$$$$$$$$
+                                    $$$$$$$$$$$$
+                                     $$$$$$$$$$"
+                                      "$$$""  "
+'@
+ Write-Host $smiley
+
+ start-sleep -s 2
 
 ###### end region execute ##########
 
