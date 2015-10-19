@@ -15,7 +15,7 @@ Import-module ActiveDirectory
 
 ######### Region Configuration ##############
     
-    $version = "1.1.1"
+    $version = "1.1.2"
 
     # Uncomment this if testing and you don't want it to send out emails
     # $testing = "y"
@@ -118,9 +118,9 @@ param(
 
         #Try and get the SamAccountName from Name Provided
         try {
-            $GivenName = $User.GivenName
-            $SurName = $User.Surname
-            $Initials = $User.Initials
+            $GivenName = $User.GivenName.trim().trim('�')
+            $SurName = $User.Surname.trim().trim('�')
+            $Initials = $User.Initials.trim().trim('�')
             $terminateduser = Get-ADUser -Filter {(GivenName -eq $GivenName) -and (Surname -eq $Surname) -and (Initials -eq $Initials)} -Properties Name, SamAccountName, MemberOf, Initials, company, displayname -ErrorAction Stop
             if (($terminateduser | measure).count -eq "1") { #Only one user found that matches, Ok to proceed.
                 $SamAccountName = $terminateduser.SamAccountName
