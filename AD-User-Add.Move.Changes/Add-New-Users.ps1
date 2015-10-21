@@ -15,10 +15,10 @@ Import-module ActiveDirectory
 
 ####### Region Configuration #########
  
-    $Version="1.1.2"
+    $Version="1.1.3"
 
     # Uncomment this if testing and you don't want it to send out emails
-     $testing = "n"
+    # $testing = "y"
 
     #scriptpath
     $ScriptRootPath = Split-Path -parent $MyInvocation.MyCommand.Definition
@@ -316,28 +316,23 @@ param($FirstName,$LastName)
     $Username = $Username -replace "'"
     
     
-    <#  I Want it to error out on duplicate user names, not add a number on the end
+    
     $i = 1
 
-    #Using try catch to supress errors
-    function Try-User {
-    param($Username)
-        try
-        {
-            Get-ADUser -Identity $Username
-        }
-        catch
-        {
-            return $false
-        }
-    }
+
 
     #while get-aduser returns a result keep trying a different number
     $OrigUsername = $Username
     while((Try-User $Username)){
-        $Username = $OrigUsername + $i
-        $i++
-    } #>
+        $Question = "$Username already exists in Active directory. Do you want me to try " + $OrigUsername + $i + "? (y/n)"
+        $tryanotheruser = read-host -Prompt $Question
+        if ($tryanotheruser -eq 'y') {
+            $Username = $OrigUsername + $i
+            $i++
+        } else {
+            break
+        }
+    } 
 
     #unquie username returned
     return $Username
@@ -356,7 +351,17 @@ function New-Password {
     return ('changemenow')
 }
 
-
+function Try-User {
+param($Username)
+    try
+    {
+        Get-ADUser -Identity $Username
+    }
+    catch
+    {
+        return $false
+    }
+}
 
 
 
@@ -874,23 +879,13 @@ param(
 
         try
         {
-            function Try-User {
-            param($Username)
-                try
-                {
-                    Get-ADUser -Identity $Username
-                }
-                catch
-                {
-                    return $false
-                }
-            }
+
             if (Try-User $Username) {
 
 
                 #username already exists
                 $ReadableFailure = "$Username already exists. Skipping"
-                Write-Error "$ReadableFailure"
+                Write-Warning "$ReadableFailure"
                 $Failures += $ReadableFailure
                 remove-variable ReadableFailure
                 logoutput -SamAccountName $Username -HomeDirectory $HomeDirectory -Password $Password -OU $OU -Failures $Failures
@@ -1085,37 +1080,9 @@ param($SamAccountName,$HomeDirectory,$Password,$OU,$Failures,$AccountEmail)
 
     Read-Host -Prompt "Press enter to finish..."
 
-    $smiley = @'
-"                          oooo$$$$$$$$$$$$oooo
-                      oo$$$$$$$$$$$$$$$$$$$$$$$$o
-                   oo$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$o         o$   $$ o$
-   o $ oo        o$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$o       $$ $$ $$o$
-oo $ $ "$      o$$$$$$$$$    $$$$$$$$$$$$$    $$$$$$$$$o       $$$o$$o$
-"$$$$$$o$     o$$$$$$$$$      $$$$$$$$$$$      $$$$$$$$$$o    $$$$$$$$
-  $$$$$$$    $$$$$$$$$$$      $$$$$$$$$$$      $$$$$$$$$$$$$$$$$$$$$$$
-  $$$$$$$$$$$$$$$$$$$$$$$    $$$$$$$$$$$$$    $$$$$$$$$$$$$$  """$$$
-   "$$$""""$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$     "$$$
-    $$$   o$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$     "$$$o
-   o$$"   $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$       $$$o
-   $$$    $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" "$$$$$$ooooo$$$$o
-  o$$$oooo$$$$$  $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$   o$$$$$$$$$$$$$$$$$
-  $$$$$$$$"$$$$   $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$     $$$$""""""""
- """"       $$$$    "$$$$$$$$$$$$$$$$$$$$$$$$$$$$"      o$$$
-            "$$$o     """$$$$$$$$$$$$$$$$$$"$$"         $$$
-              $$$o          "$$""$$$$$$""""           o$$$
-               $$$$o                                o$$$"
-                "$$$$o      o$$$$$$o"$$$$o        o$$$$
-                  "$$$$$oo     ""$$$$o$$$$$o   o$$$$""
-                     ""$$$$$oooo  "$$$o$$$$$$$$$"""
-                        ""$$$$$$$oo $$$$$$$$$$
-                                """"$$$$$$$$$$$
-                                    $$$$$$$$$$$$
-                                     $$$$$$$$$$"
-                                      "$$$""  "
-'@
- Write-Host $smiley
 
- start-sleep -s 2
+
+
 
 ###### end region execute ##########
 
