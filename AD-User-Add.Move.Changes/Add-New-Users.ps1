@@ -15,7 +15,7 @@ Import-module ActiveDirectory
 
 ####### Region Configuration #########
  
-    $Version="1.1.3"
+    $Version="1.1.4"
 
     # Uncomment this if testing and you don't want it to send out emails
     # $testing = "y"
@@ -722,9 +722,17 @@ param(
                 {
                     $templateuser = "do-ss-template"
                     $department = "Child Nutrition Svs."
-                    $OU = "OU=Users,OU=CNS,OU=SMUSD,DC=smusd,DC=local"
+                    $OU = "OU=CNS District Office Staff,OU=Users,OU=CNS,OU=SMUSD,DC=smusd,DC=local"
                     $EmailTo = $DOEmail
                     $AddGroups += "CNS Classified Email"
+                }
+            ("Child Nutrition Services")
+                {
+                    $templateuser = "CNS-Template"
+                    $department = "Child Nutrition Svs."
+                    $OU = "OU=CNS Asst.,OU=Users,OU=CNS,OU=SMUSD,DC=smusd,DC=local"
+                    $AddGroups += "CNS Classified Email"
+                    $EmailTo = $DOEmail
                 }
             ("DO Curriculum")
                 {
