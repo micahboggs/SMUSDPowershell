@@ -425,6 +425,23 @@ param(
                 #
                 switch($Company)
                     {
+                    ("Adult Transition Program")
+                        {
+                            $templateuser = "ATP-TEMPLATE"
+                
+                            if ($Title.contains("Teacher"))
+                            {
+                        
+                                $AddGroups += "ATP Certificated Email"
+                            } elseif ($Title.contains('Principal')) {
+                        
+                                $AddGroups += "ATP Management Email"
+                            } else {
+                         
+                                $AddGroups += "ATP Classified Email"
+                            }
+                            $EmailTo = $DOEmail
+                        }
                     ("Alvin Dunn Elementary School")
                         {
                             if ($Title.contains("Teacher"))
@@ -436,7 +453,7 @@ param(
                                 $AddGroups = "AD Management Email"
                             } else {
                                 $templateuser = "ad-ss-template" 
-                                $AddGroups = "AD Certificated Email"
+                                $AddGroups = "AD Classified Email"
                             }
                             $EmailTo = $ADEmail
                         }
@@ -832,6 +849,30 @@ param(
                             $EmailTo = $MOEmail
                             $AddGroups = "Maintenance Classified Email"
                         }
+
+
+                    ("Transportation")
+                        {
+                    
+                            $EmailTo = $MOEmail
+                            $AddGroups += "Transportation Classified Email"
+                            if ($Title.contains("driver"))
+                                {
+                                    $templateuser = "transdrivertemplate"
+                                    $OU = "OU=Drivers,OU=Users,OU=TRANS,OU=M&O,OU=SMUSD,DC=smusd,DC=local"
+                          
+                                } elseif ($Title.contains('Mechanic')) {
+                                    $templateuser = "transdrivertemplate"
+                                    $OU = "OU=Mechanics,OU=Users,OU=TRANS,OU=M&O,OU=SMUSD,DC=smusd,DC=local"
+                                } elseif ($Title.contains('aide')) {
+                                    $templateuser = "transdrivertemplate"
+                                    $OU = "OU=Support Staff,OU=Users,OU=TRANS,OU=M&O,OU=SMUSD,DC=smusd,DC=local"
+                                } else {
+                                    $templateuser = "transdrivertemplate"
+                                    $OU = "OU=Admin,OU=Users,OU=TRANS,OU=M&O,OU=SMUSD,DC=smusd,DC=local"
+                                }
+                        }
+
 
                     }
                     if ($Company.contains("DO") -and (-not $Company.contains("Double"))) {

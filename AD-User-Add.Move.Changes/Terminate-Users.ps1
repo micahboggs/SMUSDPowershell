@@ -15,7 +15,7 @@ Import-module ActiveDirectory
 
 ######### Region Configuration ##############
     
-    $version = "1.1.2"
+    $version = "1.1.3"
 
     # Uncomment this if testing and you don't want it to send out emails
     # $testing = "y"
@@ -428,6 +428,18 @@ param(
                                     $EmailTo = $MOEmail
                                     break
                                 }
+                            ("Transportation")
+                                {
+                                    $EmailTo = $MOEmail
+                                    break
+                                }
+                            ("Adult Transition Progam")
+                                {
+                                    $EmailTo = $DOEmail
+                                    break
+                                }
+
+
                             default 
                                 {
                                     $EmailTo = $ScriptRunAsADObject.EmailAddress
