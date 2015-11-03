@@ -384,7 +384,7 @@ param(
 
         #Sanitize the strings
         $pattern ='[^a-zA-Z.]'
-        $namePattern "[^a-zA-Z.' '`'-]"
+        $namePattern = "[^a-zA-Z.' '`'-]"
 
         $GivenName = $User.GivenName -replace $namepattern,''
         $Surname = $User.Surname -replace $namepattern,''
