@@ -15,7 +15,7 @@ Import-module ActiveDirectory
 ############## Region Configuration #############
 
 
-    $Version="1.0.2"
+    $Version="1.0.3"
 
     # Uncomment this if testing and you don't want it to send out emails
     # $testing = "y"
@@ -321,12 +321,16 @@ param(
         #Try and get the SamAccountName from Name Provided
         try {
 
-            $GivenName = $User.GivenName.trim().trim('�')
-            $Surname = $User.Surname.trim().trim('�')
-            $Initials = $User.Initials.trim().trim('�')
-            $Company = $User.company.trim().trim('�')
-            $Title = $User.title.trim().trim('�')
-            $Title = $Title -replace '�', ' '
+
+            #Sanitize the strings
+            $pattern ='[^a-zA-Z.]'
+            $namePattern "[^a-zA-Z.' '`'-]"
+
+            $GivenName = $User.GivenName -replace $namepattern,''
+            $Surname = $User.Surname -replace $namepattern,''
+            $Initials = $User.Initials -replace $pattern,''
+            $Company = $User.company -replace $pattern,''
+            $Title = $User.title -replace $pattern,''
 
 
             if($Initials){

@@ -15,7 +15,7 @@ Import-module ActiveDirectory
 
 ####### Region Configuration #########
  
-    $Version="1.1.6"
+    $Version="1.1.7"
 
     # Uncomment this if testing and you don't want it to send out emails
     # $testing = "y"
@@ -312,8 +312,9 @@ function New-Username {
 param($FirstName,$LastName)
 
     #Get basic username first
+    $pattern ='[^a-zA-Z.]'
     $Username = $FirstName + '.' + $LastName
-    $Username = $Username -replace "'" -replace " "
+    $Username = $Username -replace $pattern,''
     
     
     
@@ -381,12 +382,16 @@ param(
     foreach($User IN $input){
         Write-Host -NoNewline "."
 
-        $GivenName = $User.GivenName.trim().trim('�')
-        $Surname = $User.Surname.trim().trim('�')
-        $Initials = $User.Initials.trim().trim('�')
-        $Company = $User.company.trim().trim('�')
-        $Title = $User.title.trim().trim('�')
-        $Title = $Title -replace '�', ' '
+        #Sanitize the strings
+        $pattern ='[^a-zA-Z.]'
+        $namePattern "[^a-zA-Z.' '`'-]"
+
+        $GivenName = $User.GivenName -replace $namepattern,''
+        $Surname = $User.Surname -replace $namepattern,''
+        $Initials = $User.Initials -replace $pattern,''
+        $Company = $User.company -replace $pattern,''
+        $Title = $User.title -replace $pattern,''
+
 
 
         #Reset the failures or set if first one
