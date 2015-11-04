@@ -15,7 +15,7 @@ Import-module ActiveDirectory
 
 ####### Region Configuration #########
  
-    $Version="1.1.7"
+    $Version="1.1.8"
 
     # Uncomment this if testing and you don't want it to send out emails
     # $testing = "y"
@@ -42,7 +42,7 @@ Import-module ActiveDirectory
     ######## Pull in the Email variables from another file. This is just done so I don't sync email addresses into github ################
     ## needs to contain the arrays:   $EmailCC, $ADEmail $CESEmail $DISEmail $DPSEmail $FHSEmail $JAESEmail $KHEmail $LCMEmail $MHHSEmail $MOEmail $PALEmail $RLEmail $SEESEmail 
     ##      $SEMSEmail $SMESEmail $SMMSEmail $SMHSEmail $TOESEmail $TOHSEmail $WPMSEmail $DOEmail $TestEmailAddress 
-    $EmailFile =  "..\EmailVariables.ps1"
+    $EmailFile =  join-path $ScriptRootPath "..\EmailVariables.ps1"
     If (Test-Path $EmailFile){
         #File exists
         . $EmailFile
@@ -389,8 +389,8 @@ param(
         $GivenName = $User.GivenName -replace $namepattern,''
         $Surname = $User.Surname -replace $namepattern,''
         $Initials = $User.Initials -replace $pattern,''
-        $Company = $User.company -replace $pattern,''
-        $Title = $User.title -replace $pattern,''
+        $Company = $User.company -replace $namepattern,''
+        $Title = $User.title -replace $namepattern,''
 
 
 
@@ -792,7 +792,7 @@ param(
                 {
                     $templateuser = "do-ss-template"
                     $department = "Kids on Campus"
-                    $OU = "OU=KOC,OU=BS,OU=Users,OU=DO,OU=SMUSD,DC=smusd,DC=local"
+                    $OU = "OU=Users,OU=KOC,OU=SMUSD,DC=smusd,DC=local"
                     $EmailTo = $DOEmail
                     $AddGroups += "KOC Classified Email"
                 }
@@ -967,6 +967,8 @@ param(
             #split out username again, why?
             #because if you have a duplicate user you most likely to have duplicae DN!
             $UsernameSplit = $Username.Split('.')
+
+            
 
             #Create new user account
             $NewUserInfo = @{

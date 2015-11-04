@@ -15,7 +15,7 @@ Import-module ActiveDirectory
 ############## Region Configuration #############
 
 
-    $Version="1.0.3"
+    $Version="1.0.4"
 
     # Uncomment this if testing and you don't want it to send out emails
     # $testing = "y"
@@ -329,8 +329,8 @@ param(
             $GivenName = $User.GivenName -replace $namepattern,''
             $Surname = $User.Surname -replace $namepattern,''
             $Initials = $User.Initials -replace $pattern,''
-            $Company = $User.company -replace $pattern,''
-            $Title = $User.title -replace $pattern,''
+            $Company = $User.company -replace $namepattern,''
+            $Title = $User.title -replace $namepattern,''
 
 
             if($Initials){
@@ -805,7 +805,7 @@ param(
                         {
                             $templateuser = "do-ss-template"
                             $department = "Kids on Campus"
-                            $OU = "OU=KOC,OU=BS,OU=Users,OU=DO,OU=SMUSD,DC=smusd,DC=local"
+                            $OU = "OU=Users,OU=KOC,OU=SMUSD,DC=smusd,DC=local"
                             $EmailTo = $DOEmail
                             $AddGroups += "KOC Classified Email"
                         }
