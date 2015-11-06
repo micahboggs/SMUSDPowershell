@@ -15,10 +15,11 @@ Import-module ActiveDirectory
 
 ####### Region Configuration #########
  
-    $Version="1.1.8"
+    $Version="1.1.9"
+
 
     # Uncomment this if testing and you don't want it to send out emails
-    # $testing = "y"
+    $testing = "n"
 
     #scriptpath
     $ScriptRootPath = Split-Path -parent $MyInvocation.MyCommand.Definition
@@ -842,6 +843,7 @@ param(
                     $templateuser = "do-ss-template"
                     $EmailTo = $MOEmail
                     $AddGroups += "Maintenance Classified Email"
+                    $OU = "OU=Users,OU=Maint,OU=M&O,OU=SMUSD,DC=smusd,DC=local"
                 }
             ("Transportation")
                 {
@@ -968,7 +970,7 @@ param(
             #because if you have a duplicate user you most likely to have duplicae DN!
             $UsernameSplit = $Username.Split('.')
 
-            
+            # write-host "ou $ou ; template $template ; company $company"
 
             #Create new user account
             $NewUserInfo = @{

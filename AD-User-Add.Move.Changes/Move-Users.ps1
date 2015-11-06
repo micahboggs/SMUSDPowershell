@@ -855,6 +855,7 @@ param(
                             $templateuser = "do-ss-template"
                             $EmailTo = $MOEmail
                             $AddGroups = "Maintenance Classified Email"
+                            $OU = "OU=Users,OU=Maint,OU=M&O,OU=SMUSD,DC=smusd,DC=local"
                         }
 
 
