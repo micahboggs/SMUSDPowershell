@@ -15,7 +15,7 @@ Import-module ActiveDirectory
 
 ######### Region Configuration ##############
     
-    $version = "1.1.3"
+    $version = "1.1.4"
 
     # Uncomment this if testing and you don't want it to send out emails
     # $testing = "y"
@@ -67,7 +67,7 @@ Import-module ActiveDirectory
     ######## Pull in the Email variables from another file. This is just done so I don't sync email addresses into github ################
     ## needs to contain the arrays:   $EmailCC, $ADEmail $CESEmail $DISEmail $DPSEmail $FHSEmail $JAESEmail $KHEmail $LCMEmail $MHHSEmail $MOEmail $PALEmail $RLEmail $SEESEmail 
     ##      $SEMSEmail $SMESEmail $SMMSEmail $SMHSEmail $TOESEmail $TOHSEmail $WPMSEmail $DOEmail $TestEmailAddress 
-    $EmailFile =  "..\EmailVariables.ps1"
+    $EmailFile = join-path $ScriptRootPath "..\EmailVariables.ps1"
     If (Test-Path $EmailFile){
         #File exists
         . $EmailFile
@@ -121,8 +121,17 @@ param(
             $GivenName = $User.GivenName.trim().trim('�')
             $SurName = $User.Surname.trim().trim('�')
             $Initials = $User.Initials.trim().trim('�')
-            $terminateduser = Get-ADUser -Filter {(GivenName -eq $GivenName) -and (Surname -eq $Surname) -and (Initials -eq $Initials)} -Properties Name, SamAccountName, MemberOf, Initials, company, displayname -ErrorAction Stop
-            if (($terminateduser | measure).count -eq "1") { #Only one user found that matches, Ok to proceed.
+
+            if($Initials){
+                $terminateduser = Get-ADUser -Filter {(GivenName -eq $GivenName) -and (Surname -eq $Surname) -and (Initials -eq $Initials)} -Properties Name, SamAccountName, MemberOf, Initials, company, displayname -ErrorAction Stop
+            }else{
+                $terminateduser = Get-ADUser -Filter {(GivenName -eq $GivenName) -and (Surname -eq $Surname) } -Properties Name, SamAccountName, MemberOf, Initials, company, displayname -ErrorAction Stop
+                $noInitials = $true
+            }
+
+
+            
+            if (($terminateduser | measure).count -eq "1" -and -not $noInitials) { #Only one user found that matches, Ok to proceed.
                 $SamAccountName = $terminateduser.SamAccountName
                 if ($terminateduser.displayname.contains(',')) {
                     $OriginalOU = $terminateduser.DistinguishedName.Substring($terminateduser.DistinguishedName.IndexOf(",")+2)
@@ -138,9 +147,9 @@ param(
                 $Failures += $writewarning
                 Remove-Variable writewarning
                 $UserFound = $false
-            } elseif (($terminateduser | measure).count -eq 0) { #No Users match information given. Try to find a user without using the initials
+            } elseif (($terminateduser | measure).count -eq 0 -or $noInitials) { #No Users match information given. Try to find a user without using the initials
 
-                $terminateduser = Get-ADUser -Filter {(GivenName -eq $GivenName) -and (Surname -eq $Surname)} -Properties Name, SamAccountName, MemberOf, Initials, company, displayname -ErrorAction Stop
+                #$terminateduser = Get-ADUser -Filter {(GivenName -eq $GivenName) -and (Surname -eq $Surname)} -Properties Name, SamAccountName, MemberOf, Initials, company, displayname -ErrorAction Stop
 
                 if (($terminateduser | measure).count -eq 1) { #Only one user found that matches, Ok to proceed, but warn it wasn't an exact match.
 

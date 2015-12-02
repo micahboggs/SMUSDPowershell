@@ -15,7 +15,7 @@ Import-module ActiveDirectory
 
 ####### Region Configuration #########
  
-    $Version="1.1.9"
+    $Version="1.1.10"
 
 
     # Uncomment this if testing and you don't want it to send out emails
@@ -840,10 +840,17 @@ param(
                 }
             ("Maintenance and Operations")
                 {
-                    $templateuser = "do-ss-template"
+                    $templateuser = "mo-ss-template"
                     $EmailTo = $MOEmail
-                    $AddGroups += "Maintenance Classified Email"
-                    $OU = "OU=Users,OU=Maint,OU=M&O,OU=SMUSD,DC=smusd,DC=local"
+                    $AddGroups = "Maintenance Classified Email"
+                    if ($Title.contains("grounds"))
+                        {
+                            $OU = "OU=Users,OU=Grounds,OU=M&O,OU=SMUSD,DC=smusd,DC=local"
+                          
+                        } else {
+                            $OU = "OU=Users,OU=Maint,OU=M&O,OU=SMUSD,DC=smusd,DC=local"
+                        }
+
                 }
             ("Transportation")
                 {

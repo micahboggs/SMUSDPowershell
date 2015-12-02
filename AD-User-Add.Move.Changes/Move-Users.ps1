@@ -15,7 +15,7 @@ Import-module ActiveDirectory
 ############## Region Configuration #############
 
 
-    $Version="1.0.5"
+    $Version="1.0.6"
 
     # Uncomment this if testing and you don't want it to send out emails
     # $testing = "y"
@@ -855,9 +855,17 @@ param(
                         }
                     ("Maintenance and Operations")
                         {
-                            $templateuser = "do-ss-template"
+                            $templateuser = "mo-ss-template"
                             $EmailTo = $MOEmail
                             $AddGroups = "Maintenance Classified Email"
+                            if ($Title.contains("grounds"))
+                                {
+                                    $OU = "OU=Users,OU=Grounds,OU=M&O,OU=SMUSD,DC=smusd,DC=local"
+                          
+                                } else {
+                                    $OU = "OU=Users,OU=Maint,OU=M&O,OU=SMUSD,DC=smusd,DC=local"
+                                }
+
                         }
 
 
@@ -1032,7 +1040,7 @@ param(
         $Out
 
         #Cleanup Variables so they don't bork us later
-        Remove-Variable MoveFailure, UserFound, Failures, moveuser, AccountDN, SamAccountName, TargetOUDN, NotExact, Status, OriginalOU, noInitials, Company -ErrorAction SilentlyContinue
+        Remove-Variable MoveFailure, UserFound, Failures, moveuser, AccountDN, SamAccountName, TargetOUDN, NotExact, Status, OriginalOU, noInitials, Company, templateuser -ErrorAction SilentlyContinue
 
     }
 }
