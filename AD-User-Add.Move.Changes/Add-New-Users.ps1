@@ -15,7 +15,7 @@ Import-module ActiveDirectory
 
 ####### Region Configuration #########
  
-    $Version="1.1.10"
+    $Version="1.1.11"
 
 
     # Uncomment this if testing and you don't want it to send out emails
@@ -350,8 +350,8 @@ function New-Password {
 
     #in rare cases it fails to meet complexity so having to add a $ on the end
     #return (([string](Get-Date).DayOfWeek) + '-' + $GUID[2].ToUpper() + '-' + $GUID[3] + '$')
-    #return (([string](Get-Date).DayOfWeek) + '-' + $GUID[3] + '$')
-    return ('changemenow')
+    return (([string](Get-Date).DayOfWeek) + '-' + $GUID[3] + '$')
+    #return ('changemenow')
 }
 
 function Try-User {
