@@ -15,7 +15,7 @@ Import-module ActiveDirectory
 
 ####### Region Configuration #########
  
-    $Version="1.1.11"
+    $Version="1.1.12"
 
 
     # Uncomment this if testing and you don't want it to send out emails
@@ -808,6 +808,7 @@ param(
                 {
                     $templateuser = "do-ss-template"
                     $department = "Purchasing"
+                    $OU = "OU=BS,OU=Users,OU=DO,OU=SMUSD,DC=smusd,DC=local"
                     $EmailTo = $DOEmail
                 }
             ("DO Special Education")
