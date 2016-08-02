@@ -15,7 +15,7 @@ Import-module ActiveDirectory
 
 ####### Region Configuration #########
  
-    $Version="1.1.12"
+    $Version="1.1.13"
 
 
     # Uncomment this if testing and you don't want it to send out emails
@@ -313,7 +313,7 @@ function New-Username {
 param($FirstName,$LastName)
 
     #Get basic username first
-    $pattern ='[^a-zA-Z.]'
+    $pattern ='[^a-zA-Z-.]'
     $Username = $FirstName + '.' + $LastName
     $Username = $Username -replace $pattern,''
     

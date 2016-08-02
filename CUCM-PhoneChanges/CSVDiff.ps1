@@ -11,9 +11,9 @@ $differences = Read-Host -prompt "Results filename"
     $ScriptRootPath = Split-Path -parent $MyInvocation.MyCommand.Definition
 
 
-    $origfilename = $siteInitials + "PhoneUpdates.orig.csv"
-    $newfilename = $siteInitials + "PhoneUpdates.csv"
-    $filename = $siteInitials + "Diff.csv"
+    $origfilename = $siteInitials + "-Phones.orig.csv"
+    $newfilename = $siteInitials + "-Phones.csv"
+    $filename = $siteInitials + "-Phones-Diff.csv"
 
     $origfilename = Join-Path $ScriptRootPath $origfilename
     $newfilename = join-path $ScriptRootPath $newfilename
