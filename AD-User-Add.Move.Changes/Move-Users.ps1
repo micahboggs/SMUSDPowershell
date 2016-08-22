@@ -15,7 +15,7 @@ Import-module ActiveDirectory
 ############## Region Configuration #############
 
 
-    $Version="1.0.8"
+    $Version="1.1"
 
     # Uncomment this if testing and you don't want it to send out emails
     # $testing = "y"
@@ -448,6 +448,8 @@ param(
                                 $AddGroups += "ATP Classified Email"
                             }
                             $EmailTo = $DOEmail
+                            $CompanyFixed = "Adult Transition Center"
+
                         }
                     ("Alvin Dunn Elementary School")
                         {
@@ -463,6 +465,7 @@ param(
                                 $AddGroups = "AD Classified Email"
                             }
                             $EmailTo = $ADEmail
+                            $CompanyFixed = "Alvin Dunn Elementary"
                         }
                     ("Carrillo Elementary School")
                         {
@@ -478,6 +481,7 @@ param(
                                 $AddGroups = "CAR Classified Email"
                             }
                             $EmailTo = $CESEmail
+                            $CompanyFixed = "Carrillo Elementary"
                         }
                     ("Double Peak School")
                         {
@@ -493,6 +497,7 @@ param(
                                 $AddGroups = "DPS Classified Email"
                             }
                             $EmailTo = $DPSEmail
+                            $CompanyFixed = "Double Peak"
 
                         }
                     ("Discovery Elementary School")
@@ -510,6 +515,7 @@ param(
                                 $AddGroups = "DIS Classified Email"
                             }
                             $EmailTo = $DISEmail
+                            $CompanyFixed = "Discovery Elementary"
                         }
                     ("Foothills High School")
                         {
@@ -526,6 +532,7 @@ param(
                                 $AddGroups = "FH Classified Email"
                             }
                             $EmailTo = $FHSEmail
+                            $CompanyFixed = "Foothills High"
                         }
                     ("Joli Ann Leichtag Elementary School")
                         {
@@ -542,6 +549,7 @@ param(
                                 $AddGroups = "JALE Classified Email"
                             }
                             $EmailTo = $JAESEmail
+                            $CompanyFixed = "Joli Ann Elementary"
                         }
                     ("Knob Hill Elementary School")
                         {
@@ -558,6 +566,7 @@ param(
                                 $AddGroups = "KH Classified Email"
                             }
                             $EmailTo = $KHEmail
+                            $CompanyFixed = "Knob Hill Elementary"
                         }
                     ("La Costa Meadows Elementary School")
                         {
@@ -574,6 +583,7 @@ param(
                                 $AddGroups = "LCM Classified Email"
                             }
                             $EmailTo = $LCMEmail
+                            $CompanyFixed = "La Costa Meadows Elementary"
                         }
                     ("Mission Hills High School")
                         {
@@ -590,6 +600,7 @@ param(
                                 $AddGroups = "MHHS Classified Email"
                             }
                             $EmailTo = $MHHSEmail
+                            $CompanyFixed = "Mission Hills High"
                         }
                     ("Paloma Elementary School")
                         {
@@ -606,6 +617,7 @@ param(
                                 $AddGroups = "PAL Classified Email"
                             }
                             $EmailTo = $PALEmail
+                            $CompanyFixed = "Paloma Elementary"
                         }
                     ("Richland Elementary School")
                         {
@@ -622,6 +634,7 @@ param(
                                 $AddGroups = "RL Classified Email"
                             }
                             $EmailTo = $RLEmail
+                            $CompanyFixed = "Richland Elementary"
                         }
                     ("San Elijo Elementary School")
                         {
@@ -638,6 +651,7 @@ param(
                                 $AddGroups = "SEES Classified Email"
                             }
                             $EmailTo = $SEESEmail
+                            $CompanyFixed = "San Elijo Elementary"
                         }
                     ("San Elijo Middle School")
                         {
@@ -654,6 +668,7 @@ param(
                                 $AddGroups = "SEMS Classified Email"
                             }
                             $EmailTo = $SEMSEmail
+                            $CompanyFixed = "San Elijo Middle"
                         }
                     ("San Marcos Elementary School")
                         {
@@ -670,6 +685,7 @@ param(
                                 $AddGroups = "SMES Classified Email"
                             }
                             $EmailTo = $SMESEmail
+                            $CompanyFixed = "San Marcos Elementary"
                         }
                     ("San Marcos Middle School")
                         {
@@ -686,6 +702,7 @@ param(
                                 $AddGroups = "SMMS Classified Email"
                             }
                             $EmailTo = $SMMSEmail
+                            $CompanyFixed = "San Marcos Middle"
                         }
                     ("San Marcos High School")
                         {
@@ -702,6 +719,7 @@ param(
                                 $AddGroups = "SMHS Classified Email"
                             }
                             $EmailTo = $SMHSEmail
+                            $CompanyFixed = "San Marcos High"
                         }
                     ("Twin Oaks Elementary School")
                         {
@@ -718,6 +736,7 @@ param(
                                 $AddGroups = "TOE Classified Email"
                             }
                             $EmailTo = $TOESEmail
+                            $CompanyFixed = "Twin Oaks Elementary"
                         }
                     ("Twin Oaks High School")
                         {
@@ -734,6 +753,7 @@ param(
                                 $AddGroups = "TOHS Classified Email"
                             }
                             $EmailTo = $TOHSEmail
+                            $CompanyFixed = "Twin Oaks High"
                         }
                     ("Woodland Park Middle School")
                         {
@@ -750,6 +770,7 @@ param(
                                 $AddGroups = "WPMS Classified Email"
                             }
                             $EmailTo = $WPMSEmail
+                            $CompanyFixed = "Woodland Park Middle"
                         }
                     ("DO Accounting")
                         {
@@ -757,6 +778,7 @@ param(
                             $department = "Accounting"
                             $OU = "OU=BS,OU=Users,OU=DO,OU=SMUSD,DC=smusd,DC=local"
                             $EmailTo = $DOEmail
+                            $CompanyFixed = "District Office"
                         }
                     ("DO Business Svs.")
                         {
@@ -764,6 +786,7 @@ param(
                             $department = "Business Svs."
                             $OU = "OU=BS,OU=Users,OU=DO,OU=SMUSD,DC=smusd,DC=local"
                             $EmailTo = $DOEmail
+                            $CompanyFixed = "District Office"
                         }
                     ("DO Child Nutrition Svs.")
                         {
@@ -772,6 +795,7 @@ param(
                             $OU = "OU=Users,OU=CNS,OU=SMUSD,DC=smusd,DC=local"
                             $EmailTo = $DOEmail
                             $AddGroups = "CNS Classified Email"
+                            $CompanyFixed = "District Office"
                         }
                     ("DO Curriculum")
                         {
@@ -779,6 +803,7 @@ param(
                             $department = "Curriculum"
                             $OU = "OU=IS,OU=Users,OU=DO,OU=SMUSD,DC=smusd,DC=local"
                             $EmailTo = $DOEmail
+                            $CompanyFixed = "District Office"
 
                         }
                     ("DO Human Resources")
@@ -787,6 +812,7 @@ param(
                             $department = "Human Resources"
                             $OU = "OU=HR&D,OU=Users,OU=DO,OU=SMUSD,DC=smusd,DC=local"
                             $EmailTo = $DOEmail
+                            $CompanyFixed = "District Office"
                         }
                     ("DO Instructional Svs.")
                         {
@@ -794,6 +820,7 @@ param(
                             $department = "Instructional Svs."
                             $OU = "OU=IS,OU=Users,OU=DO,OU=SMUSD,DC=smusd,DC=local"
                             $EmailTo = $DOEmail
+                            $CompanyFixed = "District Office"
                         }
                     ("DO Kids on Campus")
                         {
@@ -803,6 +830,7 @@ param(
                             $EmailTo = $DOEmail
                             $AddGroups += "KOC Classified Email"
                             $AddGroups += "DO Classified Email"
+                            $CompanyFixed = "District Office"
                         }
                     ("Kids on Campus")
                         {
@@ -811,6 +839,7 @@ param(
                             $OU = "OU=Users,OU=KOC,OU=SMUSD,DC=smusd,DC=local"
                             $EmailTo = $DOEmail
                             $AddGroups += "KOC Classified Email"
+                            $CompanyFixed = "District Office"
                         }
                     ("DO Pupil Personnel Svs.")
                         {
@@ -818,6 +847,7 @@ param(
                             $department = "Pupil Personnel Svs."
                             $OU = "OU=IS,OU=Users,OU=DO,OU=SMUSD,DC=smusd,DC=local"
                             $EmailTo = $DOEmail
+                            $CompanyFixed = "District Office"
                         }
                     ("DO Purchasing")
                         {
@@ -825,6 +855,7 @@ param(
                             $department = "Purchasing"
                             $OU = "OU=BS,OU=Users,OU=DO,OU=SMUSD,DC=smusd,DC=local"
                             $EmailTo = $DOEmail
+                            $CompanyFixed = "District Office"
                         }
                     ("DO Special Education")
                         {
@@ -832,6 +863,7 @@ param(
                             $department = "Special Education"
                             $OU = "OU=IS,OU=Users,OU=DO,OU=SMUSD,DC=smusd,DC=local"
                             $EmailTo = $DOEmail
+                            $CompanyFixed = "District Office"
                         }
                     ("DO Technology")
                         {
@@ -839,6 +871,7 @@ param(
                             $department = "Technology"
                             $OU = "OU=IT,OU=Users,OU=DO,OU=SMUSD,DC=smusd,DC=local"
                             $EmailTo = $DOEmail
+                            $CompanyFixed = "Technology"
                         }
                     ("Facilities Dept.")
                         {
@@ -847,18 +880,21 @@ param(
                             $OU = "OU=Facilities,OU=Users,OU=DO,OU=SMUSD,DC=smusd,DC=local"
                             $EmailTo = $DOEmail
                             $AddGroups = "Facilities Staff Email"
+                            $CompanyFixed = "District Office"
                         }
                     ("Language Assessment Center")
                         {
                             $templateuser = "do-ss-template"
                             $OU = "OU=IS,OU=Users,OU=DO,OU=SMUSD,DC=smusd,DC=local"
                             $EmailTo = $DOEmail
+                            $CompanyFixed = "District Office"
                         }
                     ("Maintenance and Operations")
                         {
                             $templateuser = "mo-ss-template"
                             $EmailTo = $MOEmail
                             $AddGroups = "Maintenance Classified Email"
+                            $CompanyFixed = "Maintenance & Operations"
                             if ($Title.contains("grounds"))
                                 {
                                     $OU = "OU=Users,OU=Grounds,OU=M&O,OU=SMUSD,DC=smusd,DC=local"
@@ -890,6 +926,8 @@ param(
                                     $templateuser = "transdrivertemplate"
                                     $OU = "OU=Admin,OU=Users,OU=TRANS,OU=M&O,OU=SMUSD,DC=smusd,DC=local"
                                 }
+                            $CompanyFixed = "Transportation"
+
                         }
 
 
@@ -979,7 +1017,7 @@ param(
 
                     #Lets write the title, department, and company
 
-                    Set-ADUser $SamAccountName -title $title -Department $department -Company $Company
+                    Set-ADUser $SamAccountName -title $title -Department $department -Company $CompanyFixed
 
 
                     try
