@@ -255,6 +255,22 @@
                     }
                     $EmailTo = $SMMSEmail
                 }
+            ("EEC Early Education Center (SpEd)")
+                {
+                    if ($Title.contains("Teacher"))
+                    {
+                        $templateuser = "smms-teacher-templat"
+                        $AddGroups += "SMMS Certificated Email"
+                    } elseif ($Title.contains('Principal')) {
+                        $templateuser = "smms-teacher-templat"
+                        $AddGroups += "SMMS Management Email"
+                    
+                    } else {
+                        $templateuser = "smms-ss-template" 
+                        $AddGroups += "SMMS Classified Email"
+                    }
+                    $EmailTo = $SMMSEmail
+                }
             ("San Marcos High School")
                 {
                     if ($Title.contains("Teacher"))
