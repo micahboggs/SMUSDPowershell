@@ -15,7 +15,7 @@ Import-module ActiveDirectory
 
 ####### Region Configuration #########
  
-    $Version="1.2"
+    $Version="1.2.1"
 
 
     # Uncomment this if testing and you don't want it to send out emails
@@ -313,7 +313,7 @@ function New-Username {
 param($FirstName,$LastName)
 
     #Get basic username first
-    $pattern ='[^a-zA-Z-.]'
+    $pattern ='[^a-zA-Z0-9-.]'
     $Username = $FirstName + '.' + $LastName
     $Username = $Username -replace $pattern,''
     
@@ -385,7 +385,7 @@ param(
 
         #Sanitize the strings
         $pattern ='[^a-zA-Z.]'
-        $namePattern = "[^a-zA-Z.' '`'-]"
+        $namePattern = "[^a-zA-Z0-9.' '`'-]"
 
         $GivenName = $User.GivenName -replace $namepattern,''
         $Surname = $User.Surname -replace $namepattern,''
@@ -577,20 +577,35 @@ param(
             #if home directory not present create one
             if(-not (Test-Path $HomeDirectory)){
                 New-Item -Path $HomeDirectory -ItemType Directory -ErrorAction stop | Out-Null
-                $ACL = Get-Acl $HomeDirectory -ErrorAction Stop
-                $Inherit = [system.security.accesscontrol.InheritanceFlags]"ContainerInherit, ObjectInherit"
-                $Propagation = [system.security.accesscontrol.PropagationFlags]"None"
-                $Rule = New-Object system.security.accesscontrol.filesystemaccessrule($SamAccountName,$HomePermission, $Inherit, $Propagation, "Allow") -ErrorAction Stop
-                $ACL.SetAccessRule($Rule)
-                Set-Acl $HomeDirectory $ACL -ErrorAction Stop | Out-Null
+                
+                try
+                {
+                    start-sleep -Seconds 5
+                    $ACL = Get-Acl $HomeDirectory -ErrorAction Stop
+                    $Inherit = [system.security.accesscontrol.InheritanceFlags]"ContainerInherit, ObjectInherit"
+                    $Propagation = [system.security.accesscontrol.PropagationFlags]"None"
+                    $Rule = New-Object system.security.accesscontrol.filesystemaccessrule($SamAccountName,$HomePermission, $Inherit, $Propagation, "Allow") -ErrorAction Stop
+                    $ACL.SetAccessRule($Rule)
+                    Set-Acl $HomeDirectory $ACL -ErrorAction Stop | Out-Null
+                }
+                catch
+                {
+                    #failed to create home directory, non fatal user can still work so warning only
+                    $line = $_.InvocationInfo.ScriptLineNumber
+                    $ReadableFailure =  "Failed to set permissions on user home directory '$HomeDirectory' for '$SamAccountName'"
+                    Write-Warning "$ReadableFailure at line $line - $_"
+                    $Failures += $ReadableFailure + '  -  ' + $_.ToString()
+                    remove-variable ReadableFailure
+                }
             }
 
         }
         catch
         {
             #failed to create home directory, non fatal user can still work so warning only
+            $line = $_.InvocationInfo.ScriptLineNumber
             $ReadableFailure =  "Failed to create user home directory '$HomeDirectory' for '$SamAccountName'"
-            Write-Warning "$ReadableFailure - $_"
+            Write-Warning "$ReadableFailure at line $line - $_"
             $Failures += $ReadableFailure + '  -  ' + $_.ToString()
             remove-variable ReadableFailure
         } 
