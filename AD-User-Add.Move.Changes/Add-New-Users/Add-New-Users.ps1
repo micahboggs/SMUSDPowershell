@@ -15,7 +15,7 @@ Import-module ActiveDirectory
 
 ####### Region Configuration #########
  
-    $Version="1.2.1"
+    $Version="1.2.2"
 
 
     # Uncomment this if testing and you don't want it to send out emails
@@ -41,8 +41,7 @@ Import-module ActiveDirectory
     }
 
     ######## Pull in the Email variables from another file. This is just done so I don't sync email addresses into github ################
-    ## needs to contain the arrays:   $EmailCC, $ADEmail $CESEmail $DISEmail $DPSEmail $FHSEmail $JAESEmail $KHEmail $LCMEmail $MHHSEmail $MOEmail $PALEmail $RLEmail $SEESEmail 
-    ##      $SEMSEmail $SMESEmail $SMMSEmail $SMHSEmail $TOESEmail $TOHSEmail $WPMSEmail $DOEmail $TestEmailAddress 
+    ## needs to contain the email arrays used in the file CompanySwitch.ps1
     $EmailFile =  join-path $ScriptRootPath "..\EmailVariables.ps1"
     If (Test-Path $EmailFile){
         #File exists

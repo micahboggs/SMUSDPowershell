@@ -1,4 +1,9 @@
-﻿switch($Company)
+﻿#Note: Email Arrays used in this file include:arrays:   $EmailCC, $ADEmail $CESEmail $DISEmail $DPSEmail $FHSEmail $JAESEmail $KHEmail $LCMEmail $MHHSEmail $MOEmail $PALEmail $RLEmail $SEESEmail 
+    ##      $SEMSEmail $SMESEmail $SMMSEmail $SMHSEmail $TOESEmail $TOHSEmail $WPMSEmail $DOEmail $KOCEmail $CNSEmail $TestEmailAddress 
+    ## They must all be defined in the EmailVariables.ps1 File
+
+
+switch($Company)
             {
             ("Adult Transition Program")
                 {
@@ -255,22 +260,6 @@
                     }
                     $EmailTo = $SMMSEmail
                 }
-            ("EEC Early Education Center (SpEd)")
-                {
-                    if ($Title.contains("Teacher"))
-                    {
-                        $templateuser = "smms-teacher-templat"
-                        $AddGroups += "SMMS Certificated Email"
-                    } elseif ($Title.contains('Principal')) {
-                        $templateuser = "smms-teacher-templat"
-                        $AddGroups += "SMMS Management Email"
-                    
-                    } else {
-                        $templateuser = "smms-ss-template" 
-                        $AddGroups += "SMMS Classified Email"
-                    }
-                    $EmailTo = $SMMSEmail
-                }
             ("San Marcos High School")
                 {
                     if ($Title.contains("Teacher"))
@@ -363,7 +352,7 @@
                     $department = "Child Nutrition Svs."
                     $OU = "OU=CNS Asst.,OU=Users,OU=CNS,OU=SMUSD,DC=smusd,DC=local"
                     $AddGroups += "CNS Classified Email"
-                    $EmailTo = $DOEmail
+                    $EmailTo = $CNSEmail
                 }
             ("DO Curriculum")
                 {
@@ -392,7 +381,7 @@
                     $templateuser = "do-ss-template"
                     $department = "Kids on Campus"
                     $OU = "OU=BS,OU=Users,OU=DO,OU=SMUSD,DC=smusd,DC=local"
-                    $EmailTo = $DOEmail
+                    $EmailTo = $KOCEmail
                     $AddGroups += "KOC Classified Email"
                     $AddGroups += "DO Classified Email"
                 }
@@ -401,7 +390,7 @@
                     $templateuser = "do-ss-template"
                     $department = "Kids on Campus"
                     $OU = "OU=Users,OU=KOC,OU=SMUSD,DC=smusd,DC=local"
-                    $EmailTo = $DOEmail
+                    $EmailTo = $KOCEmail
                     $AddGroups += "KOC Classified Email"
                 }
             ("DO Pupil Personnel Svs.")
