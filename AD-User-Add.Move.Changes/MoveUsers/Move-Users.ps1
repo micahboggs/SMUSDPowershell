@@ -15,7 +15,7 @@ Import-module ActiveDirectory
 ############## Region Configuration #############
 
 
-    $Version="1.2"
+    $Version="1.2.1"
 
     # Uncomment this if testing and you don't want it to send out emails
     # $testing = "y"
@@ -575,7 +575,7 @@ param(
         $Out
 
         #Cleanup Variables so they don't bork us later
-        Remove-Variable MoveFailure, UserFound, Failures, moveuser, AccountDN, SamAccountName, TargetOUDN, NotExact, Status, OriginalOU, noInitials, Company, templateuser -ErrorAction SilentlyContinue
+        Remove-Variable MoveFailure, OU, UserFound, Failures, moveuser, AccountDN, SamAccountName, TargetOUDN, NotExact, Status, OriginalOU, noInitials, Company, templateuser -ErrorAction SilentlyContinue
 
     }
 }
