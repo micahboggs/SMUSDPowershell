@@ -470,6 +470,12 @@ switch($Company)
                             $OU = "OU=Admin,OU=Users,OU=TRANS,OU=M&O,OU=SMUSD,DC=smusd,DC=local"
                         }
                 }
+            ("Multisite")
+                {
+                    $templateuser = "do-ss-template"
+                    $OU = "OU=Users,OU=MultiSite,OU=SMUSD,DC=smusd,DC=local"
+                    $EmailTo = $DOEmail
+                }
 
             }
             if ($Company.contains("DO") -and (-not $Company.contains("Double"))) {
