@@ -15,7 +15,7 @@ Import-module ActiveDirectory
 ############## Region Configuration #############
 
 
-    $Version="1.3"
+    $Version="1.3.1"
 
     # Uncomment this if testing and you don't want it to send out emails
     # $testing = "y"
@@ -256,7 +256,7 @@ ul li, ol li {
 						<p>User site update for</p><h4>Name: $GivenName $Surname</h4>Username: $SamAccountName<br/>Title: $Title<br/>New Site: $Company<br/>Old Site: $oldsite</p>
 
 
-                        <br/>
+                        <br/><br/>
                         <p>Technician Notes: Please add the user to the proper groups, and verify login scripts. Additionally, please work with the user to copy their files to the new site. 
                         Once the user's files are moved, notify the site tech for the old site to clean up the data on the old server.</p>
 
@@ -445,10 +445,7 @@ param(
                     Exit
                 }
 
-                #Set Department if needed
-                if (-not $department) {
-                    $department = $Company.trim()
-                } 
+
 
                 #try to get info from template user
         
@@ -470,6 +467,17 @@ param(
                     logoutput -SamAccountName $Username -HomeDirectory $HomeDirectory -Password $Password -OU $OU -Failures $Failures
                     continue
 
+                }
+
+                #Set Department if needed
+                if (-not $department) {
+                    $department = $Company.trim()
+                } 
+                #check to see if company is overridden
+                if ($companyoverride ) {
+                    $company = $companyoverride
+                } else {
+                    $company = $template.company
                 }
 
                 #Build OU Path
@@ -518,7 +526,7 @@ param(
 
                     #Lets write the title, department, and company
 
-                    Set-ADUser $SamAccountName -title $title -Department $department -Company $template.company
+                    Set-ADUser $SamAccountName -title $title -Department $department -Company $company
 
 
                     try
@@ -580,7 +588,7 @@ param(
         $Out
 
         #Cleanup Variables so they don't bork us later
-        Remove-Variable MoveFailure, OU, UserFound, Failures, moveuser, AccountDN, SamAccountName, TargetOUDN, NotExact, Status, OriginalOU, noInitials, Company, templateuser -ErrorAction SilentlyContinue
+        Remove-Variable MoveFailure, OU, UserFound, Failures, moveuser, AccountDN, SamAccountName, TargetOUDN, NotExact, Status, OriginalOU, noInitials, Company, companyoverride, templateuser -ErrorAction SilentlyContinue
 
     }
 }

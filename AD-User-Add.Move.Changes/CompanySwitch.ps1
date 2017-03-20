@@ -391,6 +391,7 @@ switch($Company)
                     $department = "Kids on Campus"
                     $OU = "OU=Users,OU=KOC,OU=SMUSD,DC=smusd,DC=local"
                     $EmailTo = $KOCEmail
+                    $companyoverride = "Carrillo Elementary"
                     $AddGroups += "KOC Classified Email"
                     $AddGroups += "koc-car-email"
                 }
@@ -400,6 +401,7 @@ switch($Company)
                     $department = "Kids on Campus"
                     $OU = "OU=Users,OU=KOC,OU=SMUSD,DC=smusd,DC=local"
                     $EmailTo = $KOCEmail
+                    $companyoverride = "Discovery Elementary"
                     $AddGroups += "KOC Classified Email"
                     $AddGroups += "koc-dsc-email"
                 }
@@ -409,6 +411,7 @@ switch($Company)
                     $department = "Kids on Campus"
                     $OU = "OU=Users,OU=KOC,OU=SMUSD,DC=smusd,DC=local"
                     $EmailTo = $KOCEmail
+                    $companyoverride = "Double Peak"
                     $AddGroups += "KOC Classified Email"
                     $AddGroups += "koc-dps-email"
                 }
@@ -418,6 +421,7 @@ switch($Company)
                     $department = "Kids on Campus"
                     $OU = "OU=Users,OU=KOC,OU=SMUSD,DC=smusd,DC=local"
                     $EmailTo = $KOCEmail
+                    $companyoverride = "Knob Hill Elementary"
                     $AddGroups += "KOC Classified Email"
                     $AddGroups += "koc-kh-email"
                 }
@@ -427,6 +431,7 @@ switch($Company)
                     $department = "Kids on Campus"
                     $OU = "OU=Users,OU=KOC,OU=SMUSD,DC=smusd,DC=local"
                     $EmailTo = $KOCEmail
+                    $companyoverride = "La Costa Meadows Elementary"
                     $AddGroups += "KOC Classified Email"
                     $AddGroups += "koc-lcm-email"
                 }
@@ -436,6 +441,7 @@ switch($Company)
                     $department = "Kids on Campus"
                     $OU = "OU=Users,OU=KOC,OU=SMUSD,DC=smusd,DC=local"
                     $EmailTo = $KOCEmail
+                    $companyoverride = "Paloma Elementary"
                     $AddGroups += "KOC Classified Email"
                     $AddGroups += "koc-pal-email"
                 }
@@ -445,6 +451,7 @@ switch($Company)
                     $department = "Kids on Campus"
                     $OU = "OU=Users,OU=KOC,OU=SMUSD,DC=smusd,DC=local"
                     $EmailTo = $KOCEmail
+                    $companyoverride = "Richland Elementary"
                     $AddGroups += "KOC Classified Email"
                     $AddGroups += "koc-rl-email"
                 }
@@ -454,6 +461,7 @@ switch($Company)
                     $department = "Kids on Campus"
                     $OU = "OU=Users,OU=KOC,OU=SMUSD,DC=smusd,DC=local"
                     $EmailTo = $KOCEmail
+                    $companyoverride = "San Elijo Elementary"
                     $AddGroups += "KOC Classified Email"
                     $AddGroups += "koc-sees-email"
                 }
@@ -463,6 +471,7 @@ switch($Company)
                     $department = "Kids on Campus"
                     $OU = "OU=Users,OU=KOC,OU=SMUSD,DC=smusd,DC=local"
                     $EmailTo = $KOCEmail
+                    $companyoverride = "Twin Oaks Elementary"
                     $AddGroups += "KOC Classified Email"
                     $AddGroups += "koc-toes-email"
                 }

@@ -15,7 +15,7 @@ Import-module ActiveDirectory
 
 ####### Region Configuration #########
  
-    $Version="1.2.3"
+    $Version="1.3"
 
 
     # Uncomment this if testing and you don't want it to send out emails
@@ -477,6 +477,12 @@ param(
         if (-not $department) {
             $department = $Company.trim()
         } 
+        #check to see if company is overridden
+        if ($companyoverride ) {
+            $company = $companyoverride
+        } else {
+            $company = $template.company
+        }
 
 
         try
@@ -528,7 +534,7 @@ param(
                 EmailAddress = "$Username@$DomainName"
                 HomeDirectory = $HomeDirectory
                 Department = $department
-                Company = $template.company
+                Company = $company
                 Enabled = $true
                 ChangePasswordAtLogon = $true
                 AccountPassword = (ConvertTo-SecureString -String $Password -AsPlainText -Force)
@@ -649,7 +655,7 @@ param(
 
 
         #Remove any variables created incase it causes a duplicate
-        Remove-Variable -Name Username,HomeDirectory,HomeRoot,Password,Failures,NewUserInfo,templateuser,department,OU,LoginName,AccountEmail,AddGroups -ErrorAction SilentlyContinue
+        Remove-Variable -Name Username,HomeDirectory,HomeRoot,Password,Failures,NewUserInfo,templateuser,department,companyoverride,OU,LoginName,AccountEmail,AddGroups -ErrorAction SilentlyContinue
         
 
     }#end for each user in CSV
