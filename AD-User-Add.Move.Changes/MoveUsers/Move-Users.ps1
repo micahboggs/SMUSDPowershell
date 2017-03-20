@@ -15,7 +15,7 @@ Import-module ActiveDirectory
 ############## Region Configuration #############
 
 
-    $Version="1.2.2"
+    $Version="1.3"
 
     # Uncomment this if testing and you don't want it to send out emails
     # $testing = "y"
@@ -67,7 +67,7 @@ Import-module ActiveDirectory
     ######## Pull in the Email variables from another file. This is just done so I don't sync email addresses into github ################
     ## needs to contain the arrays:   $EmailCC, $ADEmail $CESEmail $DISEmail $DPSEmail $FHSEmail $JAESEmail $KHEmail $LCMEmail $MHHSEmail $MOEmail $PALEmail $RLEmail $SEESEmail 
     ##      $SEMSEmail $SMESEmail $SMMSEmail $SMHSEmail $TOESEmail $TOHSEmail $WPMSEmail $DOEmail $TestEmailAddress 
-    $EmailFile =  "..\EmailVariables.ps1"
+    $EmailFile =  "$ScriptRootPath\..\EmailVariables.ps1"
     If (Test-Path $EmailFile){
         #File exists
         . $EmailFile
@@ -317,6 +317,8 @@ param(
         
         #Reset the failures or set if first one
         $Failures = @()
+        #Reset add to groups or set if first one
+        $AddGroups += @()
 
         #Try and get the SamAccountName from Name Provided
         try {
@@ -324,7 +326,7 @@ param(
 
             #Sanitize the strings
             $pattern ='[^a-zA-Z-.]'
-            $namePattern = "[^a-zA-Z.' '`'-/]"
+            $namePattern = "[^a-zA-Z.' '`'-]"
 
             $GivenName = $User.GivenName -replace $namepattern,''
             $GivenName = $GivenName.trim()
@@ -334,6 +336,7 @@ param(
             $Company = $User.company -replace $namepattern,''
             $Company = $Company.trim()
             $Title = $User.title -replace $namepattern,''
+
 
 
             if($Initials){
@@ -452,7 +455,7 @@ param(
                 try
                 {
             
-                    $template = get-aduser -Identity $templateuser -Properties HomeDirectory, memberof, scriptpath, homedrive, company, Department, Office -ErrorAction Stop
+                    $template = get-aduser -Identity $SamAccountName -Properties HomeDirectory, memberof, scriptpath, homedrive, company, Department, Office -ErrorAction Stop
 
 
 
@@ -470,6 +473,7 @@ param(
                 }
 
                 #Build OU Path
+
                 if (-not $OU) {
                 
                     $OU = $template.DistinguishedName.Substring($template.DistinguishedName.IndexOf(",")+1)
@@ -487,6 +491,7 @@ param(
 
                 #ok, move them to the OU
                 try {
+
                     Move-ADObject -Identity $AccountDN -TargetPath $TargetOUDN -ErrorAction Stop
                 }
                 catch {

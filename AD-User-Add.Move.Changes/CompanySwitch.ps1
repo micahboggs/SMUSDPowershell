@@ -385,6 +385,87 @@ switch($Company)
                     $AddGroups += "KOC Classified Email"
                     $AddGroups += "DO Classified Email"
                 }
+            ('KOCCarrillo Elementary')
+                {
+                    $templateuser = "do-ss-template"
+                    $department = "Kids on Campus"
+                    $OU = "OU=Users,OU=KOC,OU=SMUSD,DC=smusd,DC=local"
+                    $EmailTo = $KOCEmail
+                    $AddGroups += "KOC Classified Email"
+                    $AddGroups += "koc-car-email"
+                }
+            ('KOCDiscovery Elementary')
+                {
+                    $templateuser = "do-ss-template"
+                    $department = "Kids on Campus"
+                    $OU = "OU=Users,OU=KOC,OU=SMUSD,DC=smusd,DC=local"
+                    $EmailTo = $KOCEmail
+                    $AddGroups += "KOC Classified Email"
+                    $AddGroups += "koc-dsc-email"
+                }
+            ('KOCDouble Peak School')
+                {
+                    $templateuser = "do-ss-template"
+                    $department = "Kids on Campus"
+                    $OU = "OU=Users,OU=KOC,OU=SMUSD,DC=smusd,DC=local"
+                    $EmailTo = $KOCEmail
+                    $AddGroups += "KOC Classified Email"
+                    $AddGroups += "koc-dps-email"
+                }
+            ('KOCKnob Hill Elementary')
+                {
+                    $templateuser = "do-ss-template"
+                    $department = "Kids on Campus"
+                    $OU = "OU=Users,OU=KOC,OU=SMUSD,DC=smusd,DC=local"
+                    $EmailTo = $KOCEmail
+                    $AddGroups += "KOC Classified Email"
+                    $AddGroups += "koc-kh-email"
+                }
+            ('KOCLa Costa Meadows Elementary')
+                {
+                    $templateuser = "do-ss-template"
+                    $department = "Kids on Campus"
+                    $OU = "OU=Users,OU=KOC,OU=SMUSD,DC=smusd,DC=local"
+                    $EmailTo = $KOCEmail
+                    $AddGroups += "KOC Classified Email"
+                    $AddGroups += "koc-lcm-email"
+                }
+            ('KOCPaloma Elementary')
+                {
+                    $templateuser = "do-ss-template"
+                    $department = "Kids on Campus"
+                    $OU = "OU=Users,OU=KOC,OU=SMUSD,DC=smusd,DC=local"
+                    $EmailTo = $KOCEmail
+                    $AddGroups += "KOC Classified Email"
+                    $AddGroups += "koc-pal-email"
+                }
+            ('KOCRichland Elementary')
+                {
+                    $templateuser = "do-ss-template"
+                    $department = "Kids on Campus"
+                    $OU = "OU=Users,OU=KOC,OU=SMUSD,DC=smusd,DC=local"
+                    $EmailTo = $KOCEmail
+                    $AddGroups += "KOC Classified Email"
+                    $AddGroups += "koc-rl-email"
+                }
+            ('KOCSan Elijo Elementary')
+                {
+                    $templateuser = "do-ss-template"
+                    $department = "Kids on Campus"
+                    $OU = "OU=Users,OU=KOC,OU=SMUSD,DC=smusd,DC=local"
+                    $EmailTo = $KOCEmail
+                    $AddGroups += "KOC Classified Email"
+                    $AddGroups += "koc-sees-email"
+                }
+            ('KOCTwin Oaks Elementary')
+                {
+                    $templateuser = "do-ss-template"
+                    $department = "Kids on Campus"
+                    $OU = "OU=Users,OU=KOC,OU=SMUSD,DC=smusd,DC=local"
+                    $EmailTo = $KOCEmail
+                    $AddGroups += "KOC Classified Email"
+                    $AddGroups += "koc-toes-email"
+                }
             ("Kids on Campus")
                 {
                     $templateuser = "do-ss-template"
