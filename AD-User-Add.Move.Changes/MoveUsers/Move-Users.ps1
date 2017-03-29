@@ -15,7 +15,7 @@ Import-module ActiveDirectory
 ############## Region Configuration #############
 
 
-    $Version="1.3.1"
+    $Version="1.3.2"
 
     # Uncomment this if testing and you don't want it to send out emails
     # $testing = "y"
@@ -452,7 +452,7 @@ param(
                 try
                 {
             
-                    $template = get-aduser -Identity $SamAccountName -Properties HomeDirectory, memberof, scriptpath, homedrive, company, Department, Office -ErrorAction Stop
+                    $template = get-aduser -Identity $templateuser -Properties HomeDirectory, memberof, scriptpath, homedrive, company, Department, Office -ErrorAction Stop
 
 
 
@@ -481,6 +481,7 @@ param(
                 }
 
                 #Build OU Path
+               
 
                 if (-not $OU) {
                 
@@ -495,7 +496,7 @@ param(
                 }
 
                 $TargetOUDN = $OU
-
+                
 
                 #ok, move them to the OU
                 try {
