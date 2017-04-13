@@ -15,7 +15,7 @@ Import-module ActiveDirectory
 ############## Region Configuration #############
 
 
-    $Version="1.3.2"
+    $Version="1.3.3"
 
     # Uncomment this if testing and you don't want it to send out emails
     # $testing = "y"
@@ -326,7 +326,7 @@ param(
 
             #Sanitize the strings
             $pattern ='[^a-zA-Z-.]'
-            $namePattern = "[^a-zA-Z.' '`'-]"
+            $namePattern = "[^a-zA-Z0-9.' '`'-/]"
 
             $GivenName = $User.GivenName -replace $namepattern,''
             $GivenName = $GivenName.trim()
