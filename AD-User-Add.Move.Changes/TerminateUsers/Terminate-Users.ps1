@@ -15,7 +15,7 @@ Import-module ActiveDirectory
 
 ######### Region Configuration ##############
     
-    $version = "1.1.4"
+    $version = "1.1.5"
 
     # Uncomment this if testing and you don't want it to send out emails
     # $testing = "y"
@@ -225,7 +225,7 @@ param(
                     if ((get-date).Month -ge 4 -and (get-date).Month -le 9) {
                         $TargetOUDN = "OU=Termination date between April 1 - Sep 30,OU=Disabled Users,OU=SMUSD,DC=smusd,DC=local"
                     } else {
-                        $TargetOUDN = "OU=Termination date between Oct 1 - March 30,OU=Disabled Users,OU=SMUSD,DC=smusd,DC=local"
+                        $TargetOUDN = "OU=Termination date between Oct 1 - March 31,OU=Disabled Users,OU=SMUSD,DC=smusd,DC=local"
                     }
                     try {
                         Move-ADObject -Identity $AccountDN -TargetPath $TargetOUDN -ErrorAction Stop
