@@ -172,7 +172,7 @@ param(
 
         #Need this to build the CSVs
         $Out = '' | Select-Object MODEL, "DEVICE NAME", DESCRIPTION, "DEVICE POOL", LOCATION, "OWNER USER ID", "USER ID", "DIRECTORY NUMBER 1", "DISPLAY 1", "LINE TEXT LABEL 1", "ASCII ALERTING NAME 1", "ALERTING NAME 1", "EXTERNAL PHONE NUMBER MASK 1", "VOICE MAIL PROFILE 1"
-        $Out.Model = $phone.MODEL
+        $Out.Model = $Phone."Device Type"
         $Out."DEVICE NAME" = $Phone."DEVICE NAME"
         $Out.DESCRIPTION = $Phone.DESCRIPTION 
         $Out."DEVICE POOL" = $Phone."DEVICE POOL"
@@ -251,9 +251,9 @@ param(
    # $manualCSV | Format-Table
    # $processedCSV | Format-Table
 
-   $manualCSV | export-csv $ManualCSVFilename
-   $ProcessedCSV | Export-Csv  $ProcessedFilename 
-   $Results | Export-Csv $ResultsFile 
+   $manualCSV | export-csv $ManualCSVFilename -NoTypeInformation
+   $ProcessedCSV | Export-Csv  $ProcessedFilename -NoTypeInformation
+   $Results | Export-Csv $ResultsFile -NoTypeInformation
 
     
 
@@ -276,7 +276,7 @@ param(
     $siteInitials = Read-Host -prompt "Please enter the site Abbreviation you used in the filenames"
     #$SiteInitials = "JAES" # For testing so I don't have to type the damn thing in every time
 
-    $filename = $SiteInitials + "Diff.csv"
+    $filename = $SiteInitials + "-Phones-Diff.csv"
     $filename = Join-Path $ScriptRootPath $filename
 
 
