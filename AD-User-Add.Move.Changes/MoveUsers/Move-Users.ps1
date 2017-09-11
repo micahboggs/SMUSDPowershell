@@ -15,7 +15,7 @@ Import-module ActiveDirectory
 ############## Region Configuration #############
 
 
-    $Version="1.3.3"
+    $Version="1.3.4"
 
     # Uncomment this if testing and you don't want it to send out emails
     # $testing = "y"
@@ -258,7 +258,7 @@ ul li, ol li {
 
                         <br/><br/>
                         <p>Technician Notes: Please add the user to the proper groups, and verify login scripts. Additionally, please work with the user to copy their files to the new site. 
-                        Once the user's files are moved, notify the site tech for the old site to clean up the data on the old server.</p>
+                        Once the user's files are moved, notify the site tech for the old site to clean up the data on the old server and remove the user from the old site's groups.</p>
 
 						<p class="padding"></p>
 						<p>Thanks,<br/>IT Department</p>
