@@ -15,7 +15,7 @@ Import-module ActiveDirectory
 
 ####### Region Configuration #########
  
-    $Version="1.3"
+    $Version="1.4"
 
 
     # Uncomment this if testing and you don't want it to send out emails
@@ -336,7 +336,7 @@ param($FirstName,$LastName)
         }
     } 
 
-    #unquie username returned
+    #unique username returned
     return $Username
 
 }
@@ -381,7 +381,6 @@ param(
 
     foreach($User IN $input){
         Write-Host -NoNewline "."
-
         #Sanitize the strings
         $pattern ='[^a-zA-Z.]'
         $namePattern = "[^a-zA-Z0-9.' '`'-/]"
@@ -441,7 +440,7 @@ param(
             Write-Error "$ReadableFailure - $_"
             $Failures += $ReadableFailure + '  -  ' + $_.ToString()
             remove-variable ReadableFailure
-            logoutput -SamAccountName $Username -HomeDirectory $HomeDirectory -Password $Password -OU $OU -Failures $Failures
+            logoutput -SamAccountName $Username -HomeDirectory $HomeDirectory -Password $Password -OU $OU -Failures $Failures -GivenName $GivenName -Surname $Surname -Initials $Initials -Company $Company -Title $Title
             continue
 
         }
@@ -553,7 +552,7 @@ param(
             Write-Error "$ReadableFailure - $_"
             $Failures += $ReadableFailure + '  -  ' + $_.ToString()
             remove-variable ReadableFailure
-            logoutput -SamAccountName $SamAccountName -HomeDirectory $HomeDirectory -Password $Password -OU $OU -Failures $Failures
+            logoutput -SamAccountName $SamAccountName -HomeDirectory $HomeDirectory -Password $Password -OU $OU -Failures $Failures -GivenName $GivenName -Surname $Surname -Initials $Initials -Company $Company -Title $Title
             continue
         }
 
@@ -651,7 +650,7 @@ param(
         }
 
         $AccountEmail = "$Username@$DomainName"
-        logoutput -SamAccountName $SamAccountName -HomeDirectory $HomeDirectory -Password $Password -OU $OU -Failures $Failures -AccountEmail $AccountEmail
+        logoutput -SamAccountName $SamAccountName -HomeDirectory $HomeDirectory -Password $Password -OU $OU -Failures $Failures -AccountEmail $AccountEmail -GivenName $GivenName -Surname $Surname -Initials $Initials -Company $Company -Title $Title
 
 
         #Remove any variables created incase it causes a duplicate
@@ -664,12 +663,17 @@ param(
 
 function logoutput {
 param($SamAccountName,$HomeDirectory,$Password,$OU,$Failures,$AccountEmail)
-        $Out = '' | Select-Object Username, Email, HomeDirectory, OU, Password, Failures
+        $Out = '' | Select-Object Username, Email, HomeDirectory, OU, Password, Failures, givenName, Surname, Initials, Company, Title
         $Out.Username = $SamAccountName
         $Out.Email = $AccountEmail
         $Out.HomeDirectory = $HomeDirectory
         $Out.Password = $Password
         $Out.OU = $OU
+        $Out.GivenName = $GivenName
+        $Out.Surname = $Surname
+        $Out.Initials = $Initials
+        $Out.Company = $Company
+        $Out.Title = $Title
         $Out.Failures = $Failures -join ';'
         $Out
 }
