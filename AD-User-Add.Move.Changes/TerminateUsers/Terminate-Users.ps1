@@ -15,7 +15,7 @@ Import-module ActiveDirectory
 
 ######### Region Configuration ##############
     
-    $version = "1.1.5"
+    $version = "1.2"
 
     # Uncomment this if testing and you don't want it to send out emails
     # $testing = "y"
@@ -266,183 +266,113 @@ param(
 
                         switch($Company)
                         {
-                            ("Alvin Dunn Elementery School")
+                            ("Alvin Dunn Elementery")
                                 {
                                     $EmailTo = $ADEmail
                                     break
                                 }
-                            ("Carrillo Elementary School")
+                            ("Carrillo Elementary")
                                 {
                                     $EmailTo = $CESEmail
                                     break
                                 }
-                            ("Double Peak School")
+                            ("Double Peak")
                                 {
                                     $EmailTo = $DPSEmail
                                     break
                                 }
-                            ("Discovery Elementary School")
+                            ("Discovery Elementary")
                                 {
                                     $EmailTo = $DISEmail
                                     break
                                 }
-                            ("Foothills High School")
+                            ("Foothills High")
                                 {
                                     $EmailTo = $FHSEmail
                                     break
                                 }
-                            ("Joli Ann Leichtag Elementary School")
+                            ("Joli Ann Elementary")
                                 {
                                     $EmailTo = $JAESEmail
                                     break
                                 }
-                            ("Knob Hill Elementary School")
+                            ("Knob Hill Elementary")
                                 {
                                     $EmailTo = $KHEmail
                                     break
                                 }
-                            ("La Costa Meadows Elementary School")
+                            ("La Costa Meadows Elementary")
                                 {
                                     $EmailTo = $LCMEmail
                                     break
                                 }
-                            ("Mission Hills High School")
+                            ("Mission Hills High")
                                 {
                                     $EmailTo = $MHHSEmail
                                     break
                                 }
-                            ("Paloma Elementary School")
+                            ("Paloma Elementary")
                                 {
                                     $EmailTo = $PALEmail
                                     break
                                 }
-                            ("Richland Elementary School")
+                            ("Richland Elementary")
                                 {
                                     $EmailTo = $RLEmail
                                     break
                                 }
-                            ("San Elijo Elementary School")
+                            ("San Elijo Elementary")
                                 {
                                     $EmailTo = $SEESEmail
                                     break
                                 }
-                            ("San Elijo Middle School")
+                            ("San Elijo Middle")
                                 {
                                     $EmailTo = $SEMSEmail
                                     break
                                 }
-                            ("San Marcos Elementary School")
+                            ("San Marcos Elementary")
                                 {
                                     $EmailTo = $SMESEmail
                                     break
                                 }
-                            ("San Marcos Middle School")
+                            ("San Marcos Middle")
                                 {
                                     $EmailTo = $SMMSEmail
                                     break
                                 }
-                            ("San Marcos High School")
+                            ("San Marcos High")
                                 {
                                     $EmailTo = $SMHSEmail
                                     break
                                 }
-                            ("Twin Oaks Elementary School")
+                            ("Twin Oaks Elementary")
                                 {
                                     $EmailTo = $TOESEmail
                                     break
                                 }
-                            ("Twin Oaks High School")
+                            ("Twin Oaks High")
                                 {
                                     $EmailTo = $TOHSEmail
                                     break
                                 }
-                            ("Woodland Park Middle School")
+                            ("Woodland Park Middle")
                                 {
                                     $EmailTo = $WPMSEmail
                                     break
                                 }
-                            ("DO Accounting")
+                            ("District Office")
                                 {
                                     $EmailTo = $DOEmail
                                     break
                                 }
-                            ("DO Business Svs.")
-                                {
-                                    $EmailTo = $DOEmail
-                                    break
-                                }
-                            ("DO Child Nutrition Svs.")
-                                {
-                                    $EmailTo = $DOEmail
-                                    break
-                                }
-                            ("DO Curriculum")
-                                {
-                                    $EmailTo = $DOEmail
-                                    break
-
-                                }
-                            ("DO Human Resources")
-                                {
-                                    $EmailTo = $DOEmail
-                                    break
-                                }
-                            ("DO Instructional Svs.")
-                                {
-                                    $EmailTo = $DOEmail
-                                    break
-                                }
-                            ("DO Kids on Campus")
-                                {
-                                    $EmailTo = $DOEmail
-                                    break
-                                }
-                            ("Kids on Campus")
-                                {
-                                    $EmailTo = $DOEmail
-                                    break
-                                }
-                            ("DO Pupil Personnel Svs.")
-                                {
-                                    $EmailTo = $DOEmail
-                                    break
-                                }
-                            ("DO Purchasing")
-                                {
-                                    $EmailTo = $DOEmail
-                                    break
-                                }
-                            ("DO Special Education")
-                                {
-                                    $EmailTo = $DOEmail
-                                    break
-                                }
-                            ("DO Technology")
-                                {
-                                    $EmailTo = $DOEmail
-                                    break
-                                }
-                            ("Facilities Dept.")
-                                {
-                                    $EmailTo = $DOEmail
-                                    break
-                                }
-                            ("Language Assessment Center")
-                                {
-                                    $EmailTo = $DOEmail
-                                    break
-                                }
-                            ("Maintenance and Operations")
+                            
+                            ("Maintenance & Operations")
                                 {
                                     $EmailTo = $MOEmail
                                     break
                                 }
-                            ("Transportation")
-                                {
-                                    $EmailTo = $MOEmail
-                                    break
-                                }
-                            ("Adult Transition Progam")
+                            ("Adult Transition Center")
                                 {
                                     $EmailTo = $DOEmail
                                     break
