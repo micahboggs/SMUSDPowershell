@@ -15,7 +15,7 @@ Import-module ActiveDirectory
 
 ######### Region Configuration ##############
     
-    $version = "1.2"
+    $version = "1.3"
 
     # Uncomment this if testing and you don't want it to send out emails
     # $testing = "y"
@@ -470,6 +470,9 @@ param(
 
 
     Import-Csv $CSVFile | Term-User @TermUserConfig | Export-Csv $ResultsFile -NoTypeInformation
+    $FinalEmailFrom = '"Powershell Script" <noreply@smusd.org>'
+    Send-MailMessage -To $ScriptRunAsADObject.EmailAddress -Body "New User Script Output Report is attached" -From $FinalEmailFrom -Subject "New User Script Output Report" -Attachments $ResultsFile
+    Read-Host -Prompt "Press enter to finish..."
 
 # End Region
 
