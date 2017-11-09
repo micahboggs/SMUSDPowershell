@@ -1,9 +1,8 @@
 ﻿#################################
-# SMUSD User Termination Script
+# Active User Script
 # Written by Micah Boggs (micah.boggs@gmail.com)
 #
-# Will Disable users specified in a CSV, Remove them from all groups, and move the account to the disabled OU
-# Should log what groups the user was a member of.
+# Will compare AD with list provided by HR to verify they match.
 #
 #################################
 
@@ -15,6 +14,8 @@ Import-module ActiveDirectory
 
 ######### Region Configuration ##############
     
+    $ver="0.9"
+
   
     #scriptpath
     $ScriptRootPath = Split-Path -parent $MyInvocation.MyCommand.Definition
