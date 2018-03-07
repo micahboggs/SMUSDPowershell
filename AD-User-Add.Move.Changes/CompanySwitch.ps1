@@ -2,7 +2,7 @@
     ##      $SEMSEmail $SMESEmail $SMMSEmail $SMHSEmail $TOESEmail $TOHSEmail $WPMSEmail $DOEmail $KOCEmail $CNSEmail $TestEmailAddress 
     ## They must all be defined in the EmailVariables.ps1 File
 
-
+    Write-Host $Company
 switch($Company)
             {
             ("Adult Transition Program")
@@ -501,6 +501,13 @@ switch($Company)
                 {
                     $templateuser = "do-ss-template"
                     $department = "Special Education"
+                    $OU = "OU=IS,OU=Users,OU=DO,OU=SMUSD,DC=smusd,DC=local"
+                    $EmailTo = $DOEmail
+                }
+            ("DO Special Programs")
+                {
+                    $templateuser = "do-ss-template"
+                    $department = "Special Programs"
                     $OU = "OU=IS,OU=Users,OU=DO,OU=SMUSD,DC=smusd,DC=local"
                     $EmailTo = $DOEmail
                 }
