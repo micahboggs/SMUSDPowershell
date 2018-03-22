@@ -15,7 +15,7 @@ Import-module ActiveDirectory
 
 ####### Region Configuration #########
  
-    $Version="1.5"
+    $Version="1.6"
 
 
     # Uncomment this if testing and you don't want it to send out emails
@@ -381,6 +381,10 @@ param(
 
     foreach($User IN $input){
         Write-Host -NoNewline "."
+
+        #Remove any variables created incase it causes a duplicate
+        Remove-Variable -Name Username,HomeDirectory,HomeRoot,Password,Failures,NewUserInfo,templateuser,department,companyoverride,OU,LoginName,AccountEmail,AddGroups -ErrorAction SilentlyContinue
+
         #Sanitize the strings
         $pattern ='[^a-zA-Z.]'
         $namePattern = "[^a-zA-Z0-9.' '`'-/]"
@@ -652,10 +656,7 @@ param(
         $AccountEmail = "$Username@$DomainName"
         logoutput -SamAccountName $SamAccountName -HomeDirectory $HomeDirectory -Password $Password -OU $OU -Failures $Failures -AccountEmail $AccountEmail -GivenName $GivenName -Surname $Surname -Initials $Initials -Company $Company -Title $Title
 
-
-        #Remove any variables created incase it causes a duplicate
-        Remove-Variable -Name Username,HomeDirectory,HomeRoot,Password,Failures,NewUserInfo,templateuser,department,companyoverride,OU,LoginName,AccountEmail,AddGroups -ErrorAction SilentlyContinue
-        
+      
 
     }#end for each user in CSV
 
