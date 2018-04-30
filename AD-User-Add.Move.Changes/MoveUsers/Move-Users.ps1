@@ -430,7 +430,7 @@ param(
                 #Pick OU to move account to based on company
 
 
-                #Need to find template user based on site(companty) and position(title)
+                #Need to find template user based on site(company) and position(title)
                 #also should set the $OU for district office departments as they are not based on the template
                 #
                 $CompanySwitchFile = join-path $ScriptRootPath "..\CompanySwitch.ps1"
