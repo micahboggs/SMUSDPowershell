@@ -15,7 +15,7 @@ Import-module ActiveDirectory
 
 ######### Region Configuration ##############
     
-    $version = "1.3"
+    $version = "1.5"
 
     # Uncomment this if testing and you don't want it to send out emails
     # $testing = "y"
@@ -102,6 +102,18 @@ $ServiceDeskEmail
 }
 
 
+function get-userinfo {
+param(
+    $terminateduser
+    )
+        $script:AccountDN = $terminateduser.distinguishedname
+    if ($terminateduser.displayname.contains(',')) {
+        $script:OriginalOU = $terminateduser.DistinguishedName.Substring($terminateduser.DistinguishedName.IndexOf(",")+2)
+    } else {
+        $script:OriginalOU = $terminateduser.DistinguishedName.Substring($terminateduser.DistinguishedName.IndexOf(",")+1)
+    }
+}
+
 
 function Term-User {
 param(
@@ -111,86 +123,98 @@ param(
 
     foreach($User IN $input){
         
-        #Expecting CSV with Following Fields: GivenName, Surname, Initials, company
-        
         #Reset the failures or set if first one
         $Failures = @()
 
-        #Try and get the SamAccountName from Name Provided
-        try {
-            $GivenName = $User.GivenName.trim().trim('�')
-            $SurName = $User.Surname.trim().trim('�')
-            $Initials = $User.Initials.trim().trim('�')
 
-            if($Initials){
-                $terminateduser = Get-ADUser -Filter {(GivenName -eq $GivenName) -and (Surname -eq $Surname) -and (Initials -eq $Initials)} -Properties Name, SamAccountName, MemberOf, Initials, company, displayname -ErrorAction Stop
-            }else{
-                $terminateduser = Get-ADUser -Filter {(GivenName -eq $GivenName) -and (Surname -eq $Surname) } -Properties Name, SamAccountName, MemberOf, Initials, company, displayname -ErrorAction Stop
-                $noInitials = $true
-            }
+        #Expecting CSV with Following Fields: GivenName, Surname, Initials, company, OR a CSV with the following field: samaccountname
+
+        if ($user.samaccountname) {
+            $SamAccountName = $user.samaccountname
+            $terminateduser = get-aduser $samaccountname -Properties Name, SamAccountName, MemberOf, Initials, company, displayname -ErrorAction Stop
+            get-userinfo $terminateduser
+            $userfound = $true
+        } else {
+
+        
+
+
+            #Try and get the SamAccountName from Name Provided
+            try {
+                $GivenName = $User.GivenName.trim().trim('�')
+                $SurName = $User.Surname.trim().trim('�')
+                $Initials = $User.Initials.trim().trim('�')
+
+                if($Initials){
+                    $terminateduser = Get-ADUser -Filter {(GivenName -eq $GivenName) -and (Surname -eq $Surname) -and (Initials -eq $Initials)} -Properties Name, SamAccountName, MemberOf, Initials, company, displayname -ErrorAction Stop
+                }else{
+                    $terminateduser = Get-ADUser -Filter {(GivenName -eq $GivenName) -and (Surname -eq $Surname) } -Properties Name, SamAccountName, MemberOf, Initials, company, displayname -ErrorAction Stop
+                    $noInitials = $true
+                }
 
 
             
-            if (($terminateduser | measure).count -eq "1" -and -not $noInitials) { #Only one user found that matches, Ok to proceed.
-                $SamAccountName = $terminateduser.SamAccountName
-                if ($terminateduser.displayname.contains(',')) {
-                    $OriginalOU = $terminateduser.DistinguishedName.Substring($terminateduser.DistinguishedName.IndexOf(",")+2)
-                } else {
-                    $OriginalOU = $terminateduser.DistinguishedName.Substring($terminateduser.DistinguishedName.IndexOf(",")+1)
+                if (($terminateduser | measure).count -eq "1" -and -not $noInitials) { #Only one user found that matches, Ok to proceed.
+                    $SamAccountName = $terminateduser.SamAccountName
+
+
+
+
+                    get-userinfo $terminateduser
+
+
+
+
+                    $UserFound = $true
+                } elseif (($terminateduser | measure).count -gt 1) {
+                    #More than one account found that matches. Warn, do nothing with accounts and continue
+                    $writewarning = "More than one account that matches '" + $GivenName + " " + $Initials + " " + $Surname + "'"
+                    Write-Warning $writewarning
+                    $Failures += $writewarning
+                    Remove-Variable writewarning
+                    $UserFound = $false
+                } elseif (($terminateduser | measure).count -eq 0 -or $noInitials) { #No Users match information given. Try to find a user without using the initials
+
+                    #$terminateduser = Get-ADUser -Filter {(GivenName -eq $GivenName) -and (Surname -eq $Surname)} -Properties Name, SamAccountName, MemberOf, Initials, company, displayname -ErrorAction Stop
+
+                    if (($terminateduser | measure).count -eq 1) { #Only one user found that matches, Ok to proceed, but warn it wasn't an exact match.
+
+                        $SamAccountName = $terminateduser.SamAccountName
+
+                        get-userinfo $terminateduser
+
+                        $writewarning = "Couldn't find match with Initials, but found: '" + $GivenName + " " + $terminateduser.Initials + " " + $Surname + "'"
+                        Write-Warning $writewarning
+                        $Failures += $writewarning
+                        Remove-Variable writewarning
+                        $UserFound = $true
+                        $NotExact = $true
+                    } elseif (($terminateduser | measure).count -gt 1) { #More than one account found that matches. Warn, do nothing with accounts and continue
+
+                        $writewarning = "No Exact Matches, More than one account that matches '" + $GivenName + " " + $Surname + "'"
+                        Write-Warning $writewarning
+                        $Failures += $writewarning
+                        Remove-Variable writewarning
+                        $UserFound = $false
+                    } elseif (($terminateduser | measure).count -eq 0) { #No Matches, unknown user. Warn and move on.
+                        $writewarning = "No user matches '" + $GivenName + " " + $Surname + "'"
+                        Write-Warning $writewarning
+                        $Failures += $writewarning
+                        Remove-Variable writewarning
+                        $UserFound = $false
+                    }
                 }
-                $AccountDN = $terminateduser.distinguishedname
-                $UserFound = $true
-            } elseif (($terminateduser | measure).count -gt 1) {
-                #More than one account found that matches. Warn, do nothing with accounts and continue
-                $writewarning = "More than one account that matches '" + $GivenName + " " + $Initials + " " + $Surname + "'"
-                Write-Warning $writewarning
-                $Failures += $writewarning
+
+            }
+            catch {
+                $writewarning = "Unable to Lookup Account '" + $GivenName + " " + $Surname + "' - "
+                Write-Error "$writewarning $_"
+                $Failures += $writewarning + $_.ToString()
                 Remove-Variable writewarning
                 $UserFound = $false
-            } elseif (($terminateduser | measure).count -eq 0 -or $noInitials) { #No Users match information given. Try to find a user without using the initials
-
-                #$terminateduser = Get-ADUser -Filter {(GivenName -eq $GivenName) -and (Surname -eq $Surname)} -Properties Name, SamAccountName, MemberOf, Initials, company, displayname -ErrorAction Stop
-
-                if (($terminateduser | measure).count -eq 1) { #Only one user found that matches, Ok to proceed, but warn it wasn't an exact match.
-
-                    $SamAccountName = $terminateduser.SamAccountName
-                    $AccountDN = $terminateduser.distinguishedname
-                    if ($terminateduser.displayname.contains(',')) {
-                        $OriginalOU = $terminateduser.DistinguishedName.Substring($terminateduser.DistinguishedName.IndexOf(",")+2)
-                    } else {
-                        $OriginalOU = $terminateduser.DistinguishedName.Substring($terminateduser.DistinguishedName.IndexOf(",")+1)
-                    }
-                    $writewarning = "Couldn't find match with Initials, but found: '" + $GivenName + " " + $terminateduser.Initials + " " + $Surname + "'"
-                    Write-Warning $writewarning
-                    $Failures += $writewarning
-                    Remove-Variable writewarning
-                    $UserFound = $true
-                    $NotExact = $true
-                } elseif (($terminateduser | measure).count -gt 1) { #More than one account found that matches. Warn, do nothing with accounts and continue
-
-                    $writewarning = "No Exact Matches, More than one account that matches '" + $GivenName + " " + $Surname + "'"
-                    Write-Warning $writewarning
-                    $Failures += $writewarning
-                    Remove-Variable writewarning
-                    $UserFound = $false
-                } elseif (($terminateduser | measure).count -eq 0) { #No Matches, unknown user. Warn and move on.
-                    $writewarning = "No user matches '" + $GivenName + " " + $Surname + "'"
-                    Write-Warning $writewarning
-                    $Failures += $writewarning
-                    Remove-Variable writewarning
-                    $UserFound = $false
-                }
             }
 
         }
-        catch {
-            $writewarning = "Unable to Lookup Account '" + $GivenName + " " + $Surname + "' - "
-            Write-Error "$writewarning $_"
-            $Failures += $writewarning + $_.ToString()
-            Remove-Variable writewarning
-            $UserFound = $false
-        }
-
         if ($UserFound) { #A single account was identified to be disabled
             
             #Confirm User termination if required
