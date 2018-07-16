@@ -15,7 +15,7 @@ Import-module ActiveDirectory
 
 ######### Region Configuration ##############
     
-    $version = "1.5"
+    $version = "1.5.1"
 
     # Uncomment this if testing and you don't want it to send out emails
     # $testing = "y"
@@ -112,6 +112,8 @@ param(
     } else {
         $script:OriginalOU = $terminateduser.DistinguishedName.Substring($terminateduser.DistinguishedName.IndexOf(",")+1)
     }
+    $script:givenname = $terminateduser.givenname
+    $script:surname = $terminateduser.surname
 }
 
 
