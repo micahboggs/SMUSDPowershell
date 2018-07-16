@@ -16,4 +16,4 @@ Import-module ActiveDirectory
     #results output
     $ResultsFile = Join-Path $ScriptRootPath 'ExpiredUsers.csv'
 
-search-adaccount -accountexpired | select samaccountname | export-csv $resultsfile -NoTypeInformation
+$expiredusers = search-adaccount -accountexpired | Where-Object { ($_.DistinguishedName -notlike "*student*")  -and (  $_.enabled  ) } | select samaccountname | export-csv $resultsfile -NoTypeInformation
