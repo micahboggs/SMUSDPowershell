@@ -21,7 +21,7 @@ switch($Company)
                     }
                     $EmailTo = $DOEmail
                 }
-            ("Alvin Dunn Elementary School")
+            ("La Mirada Academy")
                 {
                     if ($Title.contains("Teacher"))
                     {
@@ -337,6 +337,13 @@ switch($Company)
                     $OU = "OU=BS,OU=Users,OU=DO,OU=SMUSD,DC=smusd,DC=local"
                     $EmailTo = $DOEmail
                 }
+            ("Pace Promise")
+                {
+                    $templateuser = "do-ss-template"
+                    $department = "San Marcos Promise"
+                    $OU = "OU=San Marcos Promise,OU=Users,OU=DO,OU=SMUSD,DC=smusd,DC=local"
+                    $EmailTo = $DOEmail
+                }
             ("DO Child Nutrition Svs.")
                 {
                     $templateuser = "do-ss-template"
@@ -508,6 +515,13 @@ switch($Company)
                     $templateuser = "do-ss-template"
                     $department = "Special Programs"
                     $OU = "OU=IS,OU=Users,OU=DO,OU=SMUSD,DC=smusd,DC=local"
+                    $EmailTo = $DOEmail
+                }
+            ("DO Superintendent")
+                {
+                    $templateuser = "do-ss-template"
+                    $department = "Superintendent"
+                    $OU = "OU=Superintendent,OU=Users,OU=DO,OU=SMUSD,DC=smusd,DC=local"
                     $EmailTo = $DOEmail
                 }
             ("DO Technology")
