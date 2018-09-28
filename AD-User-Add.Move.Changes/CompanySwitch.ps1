@@ -25,16 +25,16 @@ switch($Company)
                 {
                     if ($Title.contains("Teacher"))
                     {
-                        $templateuser = "ad-teach-template"
-                        $AddGroups += "AD Certificated Email"
+                        $templateuser = "lma-teach-template"
+                        $AddGroups += "LMA Certificated Email"
                     } elseif ($Title.contains('Principal')) {
-                        $templateuser = "ad-teach-template"
-                        $AddGroups += "AD Management Email"
+                        $templateuser = "lma-teach-template"
+                        $AddGroups += "LMA Management Email"
                     } else {
-                        $templateuser = "ad-ss-template" 
-                        $AddGroups += "AD Classified Email"
+                        $templateuser = "lma-ss-template" 
+                        $AddGroups += "LMA Classified Email"
                     }
-                    $EmailTo = $ADEmail
+                    $EmailTo = $LMAEmail
                 }
             ("Carrillo Elementary School")
                 {
@@ -327,14 +327,14 @@ switch($Company)
                 {
                     $templateuser = "do-ss-template"
                     $department = "Accounting"
-                    $OU = "OU=BS,OU=Users,OU=DO,OU=SMUSD,DC=smusd,DC=local"
+                    $OU = "OU=Business Services,OU=Users,OU=DO,OU=SMUSD,DC=smusd,DC=local"
                     $EmailTo = $DOEmail
                 }
             ("DO Business Svs.")
                 {
                     $templateuser = "do-ss-template"
                     $department = "Business Svs."
-                    $OU = "OU=BS,OU=Users,OU=DO,OU=SMUSD,DC=smusd,DC=local"
+                    $OU = "OU=Business Services,OU=Users,OU=DO,OU=SMUSD,DC=smusd,DC=local"
                     $EmailTo = $DOEmail
                 }
             ("Pace Promise")
@@ -386,7 +386,7 @@ switch($Company)
                 {
                     $templateuser = "do-ss-template"
                     $department = "Kids on Campus"
-                    $OU = "OU=BS,OU=Users,OU=DO,OU=SMUSD,DC=smusd,DC=local"
+                    $OU = "OU=Business Services,OU=Users,OU=DO,OU=SMUSD,DC=smusd,DC=local"
                     $EmailTo = $KOCEmail
                     $AddGroups += "KOC Classified Email"
                     $AddGroups += "DO Classified Email"
@@ -500,7 +500,7 @@ switch($Company)
                 {
                     $templateuser = "do-ss-template"
                     $department = "Purchasing"
-                    $OU = "OU=BS,OU=Users,OU=DO,OU=SMUSD,DC=smusd,DC=local"
+                    $OU = "OU=Business Services,OU=Users,OU=DO,OU=SMUSD,DC=smusd,DC=local"
                     $EmailTo = $DOEmail
                 }
             ("DO Special Education")
@@ -515,6 +515,12 @@ switch($Company)
                     $templateuser = "do-ss-template"
                     $department = "Special Programs"
                     $OU = "OU=IS,OU=Users,OU=DO,OU=SMUSD,DC=smusd,DC=local"
+                    $EmailTo = $DOEmail
+                }
+            ("DO Subs")
+                {
+                    $templateuser = "do-ss-template"
+                    $OU = "OU=Do Subs,OU=Users,OU=DO,OU=SMUSD,DC=smusd,DC=local"
                     $EmailTo = $DOEmail
                 }
             ("DO Superintendent")
