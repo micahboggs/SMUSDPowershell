@@ -11,17 +11,19 @@ $differences = Read-Host -prompt "Results filename"
     $ScriptRootPath = Split-Path -parent $MyInvocation.MyCommand.Definition
 
 
-    $origfilename = $siteInitials + "-Phones.orig.csv"
+    $origfilename = $siteInitials + "-Phones.csv"
     $newfilename = $siteInitials + "-Phones.csv"
     $filename = $siteInitials + "-Phones-Diff.csv"
 
-    $origfilename = Join-Path $ScriptRootPath $origfilename
-    $newfilename = join-path $ScriptRootPath $newfilename
-    $filename = Join-Path $ScriptRootPath $filename
+    $origfilename = Join-Path $ScriptRootPath "originals\$origfilename"
+    $newfilename = join-path $ScriptRootPath "returned\$newfilename"
+    $filename = Join-Path $ScriptRootPath "Diffd\$filename"
 
-$original = get-content $origfilename
-$new = get-content $newfilename
+$original = get-content $origfilename | % {$_ -replace '"',"" } 
+$new = get-content $newfilename | % {$_ -replace '"',"" } 
+
+
 
 
 Set-Content -path $filename -Value $original[0]
-Compare-Object $original $new | Where {$_.SideIndicator -eq '=>'} | ForEach-Object {$_.InputObject} | Add-Content $filename
+Compare-Object $original $new | Where {$_.SideIndicator -eq '=>'}  | ForEach-Object {$_.InputObject} | Add-Content $filename

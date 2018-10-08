@@ -1,7 +1,7 @@
 ﻿
-<# 
-#Code from somebody to eliminate duplicate headers.
 
+
+#Code from somebody to eliminate duplicate headers.
 Function Import-CSVCustom ($csvTemp) {
     $StreamReader = New-Object System.IO.StreamReader -Arg $csvTemp
     [array]$Headers = $StreamReader.ReadLine() -Split "," | % { "$_".Trim() } | ? { $_ }
@@ -15,19 +15,19 @@ Function Import-CSVCustom ($csvTemp) {
     Import-Csv $csvTemp -Header $Headers
 }
 
-#>
 
 
 
 
 
-$csvfile = "\\do-fs\staff\mboggs\desktop\smusdpowershell\CUCM-PhoneChanges\allphones.csv"
+
+$csvfile = ".\allphones.csv"
 $fields = ("location", "Device Name", "Device Type", "Directory Number 1", "Display 1", "Voice Mail Profile 1", "Owner User ID")
 $conditions = '$_."device type" -like "Cisco*" -and $_."device name" -like "SEP*"'
 
 remove-variable allphones, locations, location -ErrorAction Ignore
 
-$allphones = import-csv $csvfile | select $fields | where-object {Invoke-Expression $conditions} 
+$allphones = import-csvcustom $csvfile | select $fields | where-object {Invoke-Expression $conditions} 
 $locations = $allphones | select location | sort location | Get-Unique -AsString
 foreach ($location in $locations.location) {
     $locationCSV = @()
@@ -72,18 +72,9 @@ foreach ($location in $locations.location) {
 
 
     $csvoutputfilname = $location + "-phones.csv"
-    $csvoutputfile = join-path "\\do-fs\staff\mboggs\desktop\smusdpowershell\phones" $csvoutputfilname
+    $csvoutputfile = join-path ".\phones" $csvoutputfilname
     $locationCSV | sort extension |  export-csv $csvoutputfile -NoTypeInformation
 }
  
 
 
-#$number = "8083924","2943"
-
-#$number | foreach-object {$_.substring($_.length-4)}
-
-
-
-
-
-#Import-Csv $csvfile | select location, "Device Name","Device Type", "Directory Number 1", "Display 1", "Voice Mail Profile 1", "Owner User ID" | where "device name" -like "SEP*" | where "device type" -like "Cisco*" | Sort-Object "location","Device Type" | format-table

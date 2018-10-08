@@ -489,13 +489,6 @@ switch($Company)
                     $EmailTo = $KOCEmail
                     $AddGroups += "KOC Classified Email"
                 }
-            ("DO Pupil Personnel Svs.")
-                {
-                    $templateuser = "do-ss-template"
-                    $department = "Pupil Personnel Svs."
-                    $OU = "OU=IS,OU=Users,OU=DO,OU=SMUSD,DC=smusd,DC=local"
-                    $EmailTo = $DOEmail
-                }
             ("DO Purchasing")
                 {
                     $templateuser = "do-ss-template"
@@ -514,6 +507,13 @@ switch($Company)
                 {
                     $templateuser = "do-ss-template"
                     $department = "Special Programs"
+                    $OU = "OU=IS,OU=Users,OU=DO,OU=SMUSD,DC=smusd,DC=local"
+                    $EmailTo = $DOEmail
+                }
+            ("DO Stu Ser")
+                {
+                    $templateuser = "do-ss-template"
+                    $department = "Student Services"
                     $OU = "OU=IS,OU=Users,OU=DO,OU=SMUSD,DC=smusd,DC=local"
                     $EmailTo = $DOEmail
                 }
