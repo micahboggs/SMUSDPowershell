@@ -15,7 +15,7 @@ Import-module ActiveDirectory
 
 ####### Region Configuration #########
  
-    $Version="1.6"
+    $Version="1.7"
 
 
     # Uncomment this if testing and you don't want it to send out emails
@@ -89,7 +89,7 @@ Import-module ActiveDirectory
 ########### Region functions ################
 
 Function New-EmailTemplate {
-param($Name,$surname,$LoginName,$Password,$ServiceDeskEmail,$Title,$Site)
+param($Name,$surname,$LoginName,$Password,$ServiceDeskEmail,$Title,$Site,$useremail)
 
 #taken and modified from https://github.com/leemunroe/responsive-html-email-template/blob/master/email.html
 #thanks!
@@ -253,7 +253,8 @@ ul li, ol li {
 			<table>
 				<tr>
 					<td>
-						<p>A User Account has been created for<br/>Name: $Name $surname<br/>Title: $Title<br/>Site: $Site</p>
+						<p>A User Account has been created for<br/>Name: $Name $surname<br/>
+                        Title: $Title<br/>Site: $Site<br/>Email: $useremail</p>
 						<h4>Username:<br/>$LoginName</h4>
 						<h4>Temporary Password:<br/>$Password</h4>
                         <p>Please inform the user of their username and temporary password provided in this email. The user will be prompted to change their 
@@ -635,8 +636,8 @@ param(
             }
 
             ########
-
-            $Body = New-EmailTemplate -Name $GivenName -surname $Surname -LoginName $LoginName -Password $Password  -Title $Title -Site $Company -ServiceDeskEmail $ServiceDeskEmail
+            $AccountEmail = "$Username@$DomainName"
+            $Body = New-EmailTemplate -Name $GivenName -surname $Surname -LoginName $LoginName -Password $Password  -Title $Title -Site $Company -ServiceDeskEmail $ServiceDeskEmail -useremail $AccountEmail
 
             if($AdminEmail){
                 Send-MailMessage -To $EmailTo -CC $EmailCC -Bcc $AdminEmail -Body $Body -BodyAsHtml -From $EmailFrom -Subject $EmailSubject -ErrorAction Stop
@@ -653,7 +654,7 @@ param(
             remove-variable ReadableFailure
         }
 
-        $AccountEmail = "$Username@$DomainName"
+        
         logoutput -SamAccountName $SamAccountName -HomeDirectory $HomeDirectory -Password $Password -OU $OU -Failures $Failures -AccountEmail $AccountEmail -GivenName $GivenName -Surname $Surname -Initials $Initials -Company $Company -Title $Title
 
       
