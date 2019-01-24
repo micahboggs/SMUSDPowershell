@@ -15,10 +15,10 @@ Import-module ActiveDirectory
 ############## Region Configuration #############
 
 
-    $Version="1.3.4"
+    $Version="1.3.5"
 
     # Uncomment this if testing and you don't want it to send out emails
-    # $testing = "y"
+    #$testing = "y"
 
     #Confirm Terminations:
     #$Confirm = "Always" #Always ask for confirmation
@@ -312,6 +312,10 @@ param(
     )
 
     foreach($User IN $input){
+
+        #Cleanup Variables so they don't bork us later
+        Remove-Variable MoveFailure, OU, UserFound, Failures, moveuser, AccountDN, SamAccountName, TargetOUDN, NotExact, Status, OriginalOU, noInitials, Company, companyoverride, templateuser -ErrorAction SilentlyContinue
+
         
         #Expecting CSV with Following Fields: GivenName, Surname, Initials, company
         
@@ -349,11 +353,7 @@ param(
             if (($moveuser | measure).count -eq "1" -and -not $noInitials) { #Only one user found that matches, Ok to proceed.
                 
                 $SamAccountName = $moveuser.SamAccountName
-                if ($moveuser.displayname.contains(',')) {
-                    $OriginalOU = $moveuser.DistinguishedName.Substring($moveuser.DistinguishedName.IndexOf(",")+2)
-                } else {
-                    $OriginalOU = $moveuser.DistinguishedName.Substring($moveuser.DistinguishedName.IndexOf(",")+1)
-                }
+                $OriginalOU = $moveuser.DistinguishedName.Substring($moveuser.DistinguishedName.IndexOf("OU="))
                 $AccountDN = $moveuser.distinguishedname
                 $UserFound = $true
             } elseif (($moveuser | measure).count -gt 1) {
@@ -371,11 +371,7 @@ param(
 
                     $SamAccountName = $moveuser.SamAccountName
                     $AccountDN = $moveuser.distinguishedname
-                    if ($moveuser.displayname.contains(',')) {
-                        $OriginalOU = $moveuser.DistinguishedName.Substring($moveuser.DistinguishedName.IndexOf(",")+2)
-                    } else {
-                        $OriginalOU = $moveuser.DistinguishedName.Substring($moveuser.DistinguishedName.IndexOf(",")+1)
-                    }
+                    $OriginalOU = $moveuser.DistinguishedName.Substring($moveuser.DistinguishedName.IndexOf("OU="))
                     $writewarning = "Couldn't find match with Initials, but found: '" + $GivenName + " " + $moveuser.Initials + " " + $Surname + "'"
                     Write-Warning $writewarning
                     $Failures += $writewarning
@@ -430,7 +426,7 @@ param(
                 #Pick OU to move account to based on company
 
 
-                #Need to find template user based on site(company) and position(title)
+                #Need to find template user based on site(companty) and position(title)
                 #also should set the $OU for district office departments as they are not based on the template
                 #
                 $CompanySwitchFile = join-path $ScriptRootPath "..\CompanySwitch.ps1"
@@ -485,7 +481,7 @@ param(
 
                 if (-not $OU) {
                 
-                    $OU = $template.DistinguishedName.Substring($template.DistinguishedName.IndexOf(",")+1)
+                    $OU = $template.DistinguishedName.Substring($template.DistinguishedName.IndexOf("OU="))
                     if ($Title.contains("Teacher")) {
                         $OU = 'OU=Teachers,' + $OU
                     } elseif ($Title.Contains('Principal')) {
@@ -588,8 +584,6 @@ param(
         $Out.Warnings = $Failures -join ';'
         $Out
 
-        #Cleanup Variables so they don't bork us later
-        Remove-Variable MoveFailure, OU, UserFound, Failures, moveuser, AccountDN, SamAccountName, TargetOUDN, NotExact, Status, OriginalOU, noInitials, Company, companyoverride, templateuser -ErrorAction SilentlyContinue
 
     }
 }
