@@ -15,7 +15,7 @@ Import-module ActiveDirectory
 ######### Section config ##########
 
 
-    $Version="1.1.2"
+    $Version="1.1.3"
     #scriptpath
     $ScriptRootPath = Split-Path -parent $MyInvocation.MyCommand.Definition
 
@@ -41,6 +41,17 @@ Import-module ActiveDirectory
 
 
 ##### Section Functions #########
+
+function New-Password {
+
+    #generate a new password from GUID to make life easy
+    $GUID = [guid]::NewGuid().guid.split('-')
+
+    #in rare cases it fails to meet complexity so having to add a $ on the end
+    #return (([string](Get-Date).DayOfWeek) + '-' + $GUID[2].ToUpper() + '-' + $GUID[3] + '$')
+    return (([string](Get-Date).DayOfWeek) + '-' + $GUID[3] + '$')
+    #return ('changemenow')
+}
 
 
 function UnlockUser{
@@ -71,7 +82,8 @@ function UnlockUser{
             $givenname = $Userobject.givenname
             $surname = $Userobject.surname
             try{
-                Set-ADAccountPassword $SamAccountName -reset -newpassword (ConvertTo-SecureString -String "changemenow" -AsPlainText -Force)
+                $newpassword = New-Password
+                Set-ADAccountPassword $SamAccountName -reset -newpassword (ConvertTo-SecureString -String $newpassword -AsPlainText -Force)
             }
             catch{
                 $Warnings = "Unable to reset password for $SamAccountName"
@@ -111,17 +123,22 @@ function UnlockUser{
        
 
         #OUTPUT for logging
-        $Out = '' | Select-Object Status, Name, SamAccountName, Warnings
+        $Out = '' | Select-Object Status, Name, SamAccountName, Password, Warnings
         $OUT.Status = $Status
         $OUT.Name = "$surname, $givenname"
         $Out.SamAccountName = $SamAccountName
+        $Out.Password = $newpassword
         $Out.Warnings = $Failures -join ';'
         $Out
 
-         Remove-Variable -Name Failures, Warnings, surname, givenname, SamAccountName, Status -ErrorAction SilentlyContinue
+         Remove-Variable -Name Failures, Warnings, newpassword, surname, givenname, SamAccountName, Status -ErrorAction SilentlyContinue
 
     }
 }
+
+
+
+
 
 ######### End Section Functions ##########
 

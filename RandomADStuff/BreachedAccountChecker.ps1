@@ -13,7 +13,7 @@ function main {
     $BreachedAccounts = import-csv accountissues.csv
 
     foreach ($account in $BreachedAccounts) {
-       $adaccount = get-aduser $account.accountname -Properties *
+       $adaccount = get-aduser $account.samaccountname -Properties *
        if ($adaccount.emailaddress -notmatch 'donotsync@smusd.org') {
         $params = @{
                         'adaccount' = $adaccount.SamAccountName
