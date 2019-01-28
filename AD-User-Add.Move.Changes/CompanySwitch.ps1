@@ -590,7 +590,7 @@ switch($Company)
                 {
                     $templateuser = "do-ss-template"
                     $OU = "OU=Users,OU=MultiSite,OU=SMUSD,DC=smusd,DC=local"
-                    $EmailTo = $DOEmail
+                    $EmailTo = $MultiSiteEmail
                 }
 
             }
