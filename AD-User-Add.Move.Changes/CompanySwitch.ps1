@@ -337,7 +337,7 @@ switch($Company)
                     $OU = "OU=Business Services,OU=Users,OU=DO,OU=SMUSD,DC=smusd,DC=local"
                     $EmailTo = $DOEmail
                 }
-            ("Pace Promise")
+            ("San Marcos Promise")
                 {
                     $templateuser = "do-ss-template"
                     $department = "San Marcos Promise"
@@ -387,7 +387,7 @@ switch($Company)
                     $templateuser = "do-ss-template"
                     $department = "Kids on Campus"
                     $OU = "OU=Business Services,OU=Users,OU=DO,OU=SMUSD,DC=smusd,DC=local"
-                    $EmailTo = $KOCEmail
+                    $EmailTo = $KOCDOEmail
                     $AddGroups += "KOC Classified Email"
                     $AddGroups += "DO Classified Email"
                 }
@@ -588,9 +588,25 @@ switch($Company)
                 }
             ("Multisite")
                 {
-                    $templateuser = "do-ss-template"
-                    $OU = "OU=Users,OU=MultiSite,OU=SMUSD,DC=smusd,DC=local"
+                    $templateuser = "multisite-ss-templat"
+                    if ($Title.contains("sub"))
+                    {
+                        $OU = "OU=subs,OU=Users,OU=MultiSite,OU=SMUSD,DC=smusd,DC=local"
+                    } elseif ($title.contains("Social Work Intern")) {
+                        $OU = "OU=Social Work Interns,OU=Users,OU=MultiSite,OU=SMUSD,DC=smusd,DC=local"
+                    } else {
+                        $OU = "OU=Users,OU=MultiSite,OU=SMUSD,DC=smusd,DC=local"
+                    }
                     $EmailTo = $MultiSiteEmail
+                    if ($Title.contains("Teacher")-or $Title.contains("psychologist"))
+                    {
+                        $AddGroups += "Multisite Certificated Email"
+                    } elseif ($Title.contains('Principal')) {
+                        $AddGroups += "Multisite Management Email"
+                    
+                    } else {
+                        $AddGroups += "Multisite Classified Email"
+                    }
                 }
 
             }
@@ -603,4 +619,10 @@ switch($Company)
                     $AddGroups += "DO Classified Email"
                 }
                 
+            }
+            if ($title.contains("Intern")) {
+                $AddGroups += "SMUSD-Interns"
+            }
+            if ($title.contains("Student Teacher")) {
+                $AddGroups += "SMUSD-StudentTeachers"
             }

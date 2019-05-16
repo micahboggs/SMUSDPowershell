@@ -24,9 +24,11 @@ function main {
                         'whencreated' = $adaccount.whenCreated
                         'whenchanged' = $adaccount.whenChanged
                         'company' = $adaccount.company
+                        'office' = $adaccount.office
                         'department' = $adaccount.Department
                         'title' = $adaccount.Title
                         'DN' = $adaccount.DistinguishedName
+
                     }
 
          logoutput @params
@@ -37,9 +39,9 @@ function main {
 
 
 function logoutput {
-param($adaccount,$ademailaddress,$lastset,$lastlogin,$enabled,$whencreated,$whenchanged,$company,$department,$title,$dn)
+param($adaccount,$ademailaddress,$lastset,$lastlogin,$enabled,$whencreated,$whenchanged,$company,$office,$department,$title,$dn)
             #OUTPUT for logging
-            $Out = '' | Select-Object SamAccountName, EmailAddress, PasswordLastSet, LastLogin, AccountEnabled, AccountCreationDate, AccountLastChangeDate, Company, Department, Title, DN
+            $Out = '' | Select-Object SamAccountName, EmailAddress, PasswordLastSet, LastLogin, AccountEnabled, AccountCreationDate, AccountLastChangeDate, Company, Department, Office, Title, DN
             $Out.SamAccountName = $adaccount
             $Out.EmailAddress = $ademailaddress
             $Out.PasswordLastSet = $lastset
@@ -49,6 +51,7 @@ param($adaccount,$ademailaddress,$lastset,$lastlogin,$enabled,$whencreated,$when
             $Out.AccountLastChangeDate = $whenchanged
             $Out.Company = $company
             $Out.Department = $department
+            $Out.Office = $office
             $Out.Title = $title
             $Out.DN = $dn
             $Out
